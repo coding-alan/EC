@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>歡迎來到第七組書評網站</title>
+    <title>i書評</title>
     <!-- <style>
         body {
             background-color: black;
@@ -41,7 +41,9 @@
                 <input type="hidden" id="hf_Rkey">
                 <div class="row">
                     <div class="col-4" style="text-align:left;">
-                        <a class="navbar-brand">BookReview</a>
+                        <i class="fa-solid fa-book-bookmark"></i>
+                        &ensp;
+                        <a class="navbar-brand">i書評</a>
                     </div>
                     <div class="col-4">
                         <div id="div_search" style="display: none;">
@@ -59,11 +61,11 @@
                     </div>
                     <div class="col-4" style="text-align: right;">
                         <div class="input-group" id="div_Login">
-                            <input type="search" class="form-control" placeholder="Account" aria-label="Account"
-                                aria-describedby="basic-addon1">
-                            <input type="password" class="form-control" placeholder="Password" aria-label="Password"
-                                aria-describedby="basic-addon1">
-                            <button class="btn btn-outline-success" type="button" id="btn_Login">Login</button>
+                            <input type="search" class="form-control" placeholder="帳號名稱" aria-label="Account"
+                                aria-describedby="basic-addon1" id="txt_LogAccount">
+                            <input type="password" class="form-control" placeholder="密碼" aria-label="Password"
+                                aria-describedby="basic-addon1" id="txt_LogPWD">
+                            <button class="btn btn-outline-success" type="button" id="btn_Login">登入</button>
                         </div>
                         <div id="div_AfterLogin" style="display: none;">
                             <label id="lb_showName">Hi,TheonleOne !!</label>
@@ -71,7 +73,7 @@
                             <button class="btn btn-outline-success" type="button" id="btn_shoppingCart">
                                 <i class="fa-solid fa-cart-shopping"></i>
                             </button> 
-                            <button class="btn btn-outline-primary" type="button" id="btn_LogOut">LogOut!</button>
+                            <button class="btn btn-outline-primary" type="button" id="btn_LogOut">登出</button>
                         </div>
                     </div>
                 </div>
@@ -82,25 +84,25 @@
         <div class="col-12 col-md-auto" style="width: 100%;">
             <div class="row">
                 <div class="col-8" style="align-items: center; display: flex;">
-                    <h3>Ｗelcome to our Book Review website! Please login or Sign up!</h3>
+                    <h3>歡迎光臨 i書評 ，請登入或者註冊新的帳號。</h3>
                 </div>
                 <div class="col-4">
                     <div class="input-group">
-                        <input type="search" class="form-control" placeholder="First Name" aria-label="First Name" aria-describedby="basic-addon1"> 
-                        <input type="search" class="form-control" placeholder="Last Name" aria-label="Last Name" aria-describedby="basic-addon1">
+                        <input type="search" class="form-control" placeholder="姓氏" aria-label="Last Name" aria-describedby="basic-addon1">
+                        <input type="search" class="form-control" placeholder="名" aria-label="First Name" aria-describedby="basic-addon1">                         
                     </div>
                     <br />
-                    <input type="search" class="form-control" placeholder="Acoount" aria-label="Acoount" aria-describedby="basic-addon1"> 
+                    <input type="search" class="form-control" placeholder="帳號名稱" aria-label="Acoount" aria-describedby="basic-addon1"> 
                     <br />
-                    <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                    <input type="password" class="form-control" placeholder="密碼" aria-label="Password" aria-describedby="basic-addon1">
                     <br />
-                    <button class="btn btn-primary" type="button" id="btn_SingUp">SingUp</button>
+                    <button class="btn btn-primary" type="button" id="btn_SingUp">註冊</button>
                 </div>
             </div>
         </div>
     </div>
     <div id="div_main" style="display: none;">
-        <div id="div_Notice">
+        <div id="div_Notice" style="text-align: center;">
             <h2 style="margin-top: 150px;"> Welcome <label style="font-weight: bold;">TheOnleOne</label> Reader, please use the search bar to search which book you want to read!</h2> 
         </div>
         <div id="div_result" style="display: none;text-align: center; width: 80%;margin-left:10%; margin-top: 20px;">
@@ -109,10 +111,10 @@
                     <div class="card-body">
                         <div class="col-12 col-md-auto" style="width: 100%;">
                             <div class="row">
-                                <h2><a href="">Chase The Sun</a></h2>
+                                <h2><a href="#" onclick="">Chase The Sun</a></h2>
                             </div>
                             <div class="row">
-                                by&ensp;<a href="">Martin</a>
+                                by&ensp;<a href="#">Martin</a>
                             </div>
                             <div class="row">
                                 published 2008
@@ -126,10 +128,10 @@
                     <div class="card-body">
                         <div class="col-12 col-md-auto" style="width: 100%;">
                             <div class="row">
-                                <h2><a href="">Hit The Sun</a></h2>
+                                <h2><a href="#">Fight with The Sun</a></h2>
                             </div>
                             <div class="row">
-                                by&ensp;<a href="">Alan</a>
+                                by&ensp;<a href="#">Alan</a>
                             </div>
                             <div class="row">
                                 published 2020
@@ -143,10 +145,10 @@
                     <div class="card-body">
                         <div class="col-12 col-md-auto" style="width: 100%;">
                             <div class="row">
-                                <h2><a href="">Play with Sun</a></h2>
+                                <h2><a href="#">Play with The Sun</a></h2>
                             </div>
                             <div class="row">
-                                by&ensp;<a href="">Judith</a>
+                                by&ensp;<a href="#"">Judith</a>
                             </div>
                             <div class="row">
                                 published 2010
