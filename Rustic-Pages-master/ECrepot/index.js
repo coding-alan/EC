@@ -67,33 +67,15 @@ $(function () {
 function regist_onclick() {
     // 登入按鈕
     $('#btn_Login').on('click',function () {
-      //比對是否正確
-      let Account = $("#txt_LogAccount").val();
-      let PWD = $("#txt_LogPWD").val();
-      let Valid = false;
-
-      TmpVal.Users.forEach(function (element) {
-        if (element.UserName.toUpperCase() == Account.toUpperCase()) {
-          if (element.PassWord == PWD) {
-            Valid = true;
-            $("#hf_Rkey").val(element.Rkey);
-            setUser(element.Rkey);
-          }
-        }
-      });
-
-      if (Valid) {
-        //畫面切換
-        $("#div_Login").hide();
-        $("#div_regist").hide();
-        $("#div_AfterLogin").show();
-        $("#div_search").show();
-        Default();
-      }
-      else {
-        alert("You have either wrong Account or Password, Please check again.");
-        }
+      Login();
     });
+    //按enter登入
+    $('#txt_LogPWD,#txt_LogAccount').keyup(function (e) {
+      if (e.keyCode == 108 || e.keyCode == 13) {
+        Login();
+      }
+    });
+
     //登出按鈕
     $('#btn_LogOut').on('click',function () {
         //畫面切換
@@ -103,9 +85,75 @@ function regist_onclick() {
         $('#div_Login').show();
         $('#div_regist').show();
     });
+
     //搜尋按鈕
     $('#btn_Search').on('click', function () {
-        let Type = $('#sl2_type').val();
+      search();
+    });
+    //按enter搜尋
+    $('#txt_search').keyup(function (e) {
+      if (e.keyCode == 108 || e.keyCode == 13) {
+        search();
+        test();
+      }
+    });
+}
+
+function regist_Select2() {
+    
+}
+
+//登入用function
+function Login() {
+  //比對是否正確
+  let Account = $("#txt_LogAccount").val();
+  let PWD = $("#txt_LogPWD").val();
+  let Valid = false;
+
+  TmpVal.Users.forEach(function (element) {
+    if (element.UserName.toUpperCase() == Account.toUpperCase()) {
+      if (element.PassWord == PWD) {
+        Valid = true;
+        $("#hf_Rkey").val(element.Rkey);
+        setUser(element.Rkey);
+      }
+    }
+  });
+
+  if (Valid) {
+    //畫面切換
+    $("#div_Login").hide();
+    $("#div_regist").hide();
+    $("#div_AfterLogin").show();
+    $("#div_search").show();
+    Default();
+  }
+  else {
+    alert("You have either wrong Account or Password, Please check again.");
+    }
+}
+
+//預設設定欄位
+function Default() {    
+    $('#div_main').show();
+    $('#div_Notice').show();
+    $('#div_result').hide();
+}
+
+//設定使用者名稱到相對應的欄位
+function setUser(Rkey) {
+  TmpVal.Users.forEach(function (element) {
+    if (element.Rkey == Rkey) {
+      $("#lb_showName").text("Hi," + element.FirstName);
+      let content = '<h2 style="margin-top: 100px;"> 歡迎 <label style="font-weight: bold;">'+element.FirstName+'</label> 讀者，請使用搜尋列尋找你要的書!</h2> ';
+      $("#div_Notice").html(content);
+    }
+  });
+}
+
+//搜尋用funcrion
+function search() {
+  let Type = $('#sl2_type').val();
         let Param = $('#txt_search').val();
         //如果搜尋有結果就把notice隱藏起來
         let fulfill = [];
@@ -151,31 +199,6 @@ function regist_onclick() {
         else{
           $("#div_Notice").html('<h2 style="margin-top: 100px;">搜尋不到您要的書，請重新搜尋。</h2>');
         }
-
-        
-    });
-}
-
-function regist_Select2() {
-    
-}
-
-function Default() {
-    //設定預設值
-    $('#div_main').show();
-    $('#div_Notice').show();
-    $('#div_result').hide();
-}
-
-//設定使用者名稱到相對應的欄位
-function setUser(Rkey) {
-  TmpVal.Users.forEach(function (element) {
-    if (element.Rkey == Rkey) {
-      $("#lb_showName").text("Hi," + element.FirstName);
-      let content = '<h2 style="margin-top: 100px;"> 歡迎 <label style="font-weight: bold;">'+element.FirstName+'</label> 讀者，請使用搜尋列尋找你要的書!</h2> ';
-      $("#div_Notice").html(content);
-    }
-  });
 }
 
 function bookShow(bookRkey) {
@@ -197,4 +220,14 @@ function bookShow(bookRkey) {
         default:
             break;
     }
+}
+
+function test() {
+  $.ajax({
+    type: "POST",
+    url: "test.py",
+    data: { param1: true,param2:0}
+  }).done(function( o ) {
+     console.log(o);
+  });
 }
