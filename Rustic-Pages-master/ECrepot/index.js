@@ -25,7 +25,7 @@ var TmpVal = {
   Users: [
     {
       UserName: "Martin",
-      PassWord: "0",
+      PassWord: "Abc123",
       Rkey: 1,
       FirstName: "品堯",
       LastName: "黃",
@@ -43,6 +43,36 @@ var TmpVal = {
       Rkey: 3,
       FirstName: "文宸",
       LastName: "李",
+    },
+    {
+      UserName: "M",
+      PassWord: "0",
+      Rkey: 4,
+      FirstName: "測試",
+      LastName: "測試",
+    },
+  ],
+  review:[
+    {
+      book_Rkey:1,
+      reviewer_Rkey:2,
+      scrore:3,
+      Title:'還行吧',
+      content:'內容還可以，就是轉折有點奇怪。可以讀看看。',
+    },
+    {
+      book_Rkey:1,
+      reviewer_Rkey:3,
+      scrore:5,
+      Title:'非常推薦',
+      content:'如果你再找冒險類的小說，那就是這本了，一定要讀!!',
+    },
+    {
+      book_Rkey:1,
+      reviewer_Rkey:1,
+      scrore:1,
+      Title:'非常糟糕',
+      content:'完全不懂在寫什麼，簡直是浪費我的生命',
     },
   ],
 };
@@ -62,6 +92,9 @@ $(function () {
     // GetSelect2Base();
     regist_onclick();
     // regist_Select2();
+    $("#txt_LogAccount").val('m');
+    $("#txt_LogPWD").val('0');
+    Login();
 })
 
 function regist_onclick() {
@@ -94,7 +127,8 @@ function regist_onclick() {
     $('#txt_search').keyup(function (e) {
       if (e.keyCode == 108 || e.keyCode == 13) {
         search();
-        test();
+        // test();
+        $('#div_Detail').show();
       }
     });
 }
@@ -223,11 +257,12 @@ function bookShow(bookRkey) {
 }
 
 function test() {
+  console.log('AA');
   $.ajax({
-    type: "POST",
+    type: "GET",
     url: "test.py",
     data: { param1: true,param2:0}
-  }).done(function( o ) {
+  }).done(function( o) {
      console.log(o);
   });
 }

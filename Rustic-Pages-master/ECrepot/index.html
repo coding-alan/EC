@@ -102,13 +102,109 @@
         </div>
     </div>
     <div id="div_main" style="display: none;">
-        <div id="div_Notice" style="text-align: center;">
-            <h2 style="margin-top: 150px;"> Welcome <label style="font-weight: bold;">TheOnleOne</label> Reader, please use the search bar to search which book you want to read!</h2> 
-        </div>
-        <div id="div_result" style="display: none;text-align: center; width: 80%;margin-left:10%; margin-top: 20px;">
-        </div>
+        <div id="div_Notice" style="text-align: center;"></div>
+        <div id="div_result" style="display: none;text-align: center; width: 80%;margin-left:10%; margin-top: 20px;"></div>
     </div>
-    <div id="div_Detail" style="display: none;">
+    <div id="div_Detail" style="display: none;text-align: center; width: 80%;margin-left:10%; margin-top: 20px;">
+        <div class="col-12 col-md-auto" style="width: 100%;">
+            <div class="row">
+                <h2><label id="lb_bookName">Chase The Sun</label></h2>
+            </div>
+            <hr />
+            <div class="row" style="margin-bottom: -20px;">
+                <h3>書本詳細內容</h3>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-4" style="text-align:left;">
+                    <label style="font-weight: bold;">ISBN:</label>
+                </div>
+                <div class="col-4" style="text-align:left;">
+                    <label id="detail_ISBN">978-957-511-785-6</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4" style="text-align:left;">
+                    <label style="font-weight: bold;">作者:</label>
+                </div>
+                <div class="col-4" style="text-align:left;">
+                    <label id="detail_Author">Martin</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4" style="text-align:left;">
+                    <label style="font-weight: bold;">發行年分:</label>
+                </div>
+                <div class="col-4" style="text-align:left;">
+                    <label id="detail_Year">2008</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4" style="text-align:left;">
+                    <label style="font-weight: bold;">平均評分:</label>
+                </div>
+                <div class="col-4" style="text-align:left;">
+                    <label id="detail_AvScore">4.7</label>
+                </div>
+            </div>
+            <br />
+            <div class="row" style="margin-bottom: -20px;">
+                <h3><label id="detail_review">寫下評論吧!</label></h3>
+            </div>
+            <hr />
+        </div>
+        <div class="card">
+            <div class="context">
+                <div class="card-body">
+                    <div class="col-12 col-md-auto" style="width: 100%;">
+                        <div class="row">
+                            評分：
+                            &ensp;&ensp;&ensp;&ensp;
+                            <input type="radio" name="score" id="rad_score1" value="1" />&ensp;1
+                            &ensp;&ensp;&ensp;
+                            <input type="radio" name="score" id="rad_score2" value="2" />&ensp;2
+                            &ensp;&ensp;&ensp;
+                            <input type="radio" name="score" id="rad_score3" value="3" />&ensp;3
+                            &ensp;&ensp;&ensp;
+                            <input type="radio" name="score" id="rad_score4" value="4" />&ensp;4
+                            &ensp;&ensp;&ensp;
+                            <input type="radio" name="score" id="rad_score5" value="5" />&ensp;5
+                        </div>
+                        <br />
+                        <div class="row">
+                            標題：
+                        </div>
+                        <div class="row">
+                            <input type="search" class="form-control" id="txt_title" style="width:100%" />
+                        </div>
+                        <div class="row">
+                            <label style="font-size:smaller;color:gray;">標題需要在0-100字以內</label>
+                        </div>
+                        <br />
+                        <div class="row">
+                            評論：
+                        </div>
+                        <div class="row">
+                            <input type="search" class="form-control" id="txt_review" style="width:100%" />
+                        </div>
+                        <div class="row">
+                            <label style="font-size:smaller;color:gray;">評論需要在0-300字以內</label>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <button class="btn btn-primary" id="btn_AddReview" type="button">送出評論</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="col-12 col-md-auto" style="width: 100%;">
+            <div class="row" style="margin-bottom: -20px;">
+                <h3><label>大家的評論</label></h3>
+            </div>
+            <hr />           
+        </div>
     </div>
     </form>
   </body>

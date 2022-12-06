@@ -1,3 +1,4 @@
+
 def dummy_true() -> bool:
     """
     This function does nothing but return True
