@@ -30,6 +30,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/1195606bd5.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
     <script src="index.js"></script>
   </head>
 
@@ -102,13 +103,15 @@
         </div>
     </div>
     <div id="div_main" style="display: none;">
+        <input type="hidden" id="hf_UserRkey"/>
+        <input type="hidden" id="hf_bookRkey"/>
         <div id="div_Notice" style="text-align: center;"></div>
         <div id="div_result" style="display: none;text-align: center; width: 80%;margin-left:10%; margin-top: 20px;"></div>
     </div>
     <div id="div_Detail" style="display: none;text-align: center; width: 80%;margin-left:10%; margin-top: 20px;">
         <div class="col-12 col-md-auto" style="width: 100%;">
-            <div class="row">
-                <h2><label id="lb_bookName">Chase The Sun</label></h2>
+            <div class="row" style="margin-left: -75px;">
+                <h2><i class="fa-solid fa-chevron-left fa-lg" id="btn_prePage"></i>&ensp;&ensp;<label id="lb_bookName">Chase The Sun</label></h2>
             </div>
             <hr />
             <div class="row" style="margin-bottom: -20px;">
@@ -157,10 +160,10 @@
             <div class="context">
                 <div class="card-body">
                     <div class="col-12 col-md-auto" style="width: 100%;">
-                        <div class="row">
+                        <div class="row" id="div_radio">
                             評分：
                             &ensp;&ensp;&ensp;&ensp;
-                            <input type="radio" name="score" id="rad_score1" value="1" />&ensp;1
+                            <input type="radio" name="score" id="rad_score1" value="1" checked />&ensp;1
                             &ensp;&ensp;&ensp;
                             <input type="radio" name="score" id="rad_score2" value="2" />&ensp;2
                             &ensp;&ensp;&ensp;
@@ -205,40 +208,7 @@
             </div>
             <hr />
         </div>
-        <div class="card" style="width:100%;">
-            <div class="context">
-                <div class="card-body">
-                    <div class="col-12 col-md-auto" style="width: 100%;">
-                        <div class="row">
-                            <label>Alan&ensp;</label>&ensp;評分:&ensp;<label style="font-weight:bold;">3</label>
-                        </div>
-                        <div class="row">
-                            <label style="font-size:larger">還行吧</label>
-                        </div>
-                        <div class="row">
-                            <label>內容還可以，就是轉折有點奇怪。可以讀看看。</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>        
-        <div class="card" style="width:100%;margin-top: 10px;">
-            <div class="context">
-                <div class="card-body">
-                    <div class="col-12 col-md-auto" style="width: 100%;">
-                        <div class="row">
-                            <label>Alan&ensp;</label>&ensp;評分:&ensp;<label style="font-weight:bold;">3</label>
-                        </div>
-                        <div class="row">
-                            <label style="font-size:larger">還行吧</label>
-                        </div>
-                        <div class="row">
-                            <label>內容還可以，就是轉折有點奇怪。可以讀看看。</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="div_reviewCard"></div>
     </div>
     </form>
   </body>
