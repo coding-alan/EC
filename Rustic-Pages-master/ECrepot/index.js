@@ -91,6 +91,7 @@ $(function () {
     // }
     // GetSelect2Base();
     regist_onclick();
+    regist_onchange();
     // regist_Select2();
     $("#txt_LogAccount").val('m');
     $("#txt_LogPWD").val('0');
@@ -128,9 +129,52 @@ function regist_onclick() {
       if (e.keyCode == 108 || e.keyCode == 13) {
         search();
         // test();
-        $('#div_Detail').show();
+        // $('#div_Detail').show();
+        Swal.fire({
+          title: 'Error!',
+          text: 'Do you want to continue',
+          icon: 'error',
+          confirmButtonText: 'Cool'
+        })
       }
     });
+
+    //書本細項上一頁
+    $('#btn_prePage').on('click',function () {
+      //詳細資料關起來
+      $('#div_Detail').hide();
+      //搜尋頁面打開
+      $('#div_result').show();
+    });
+
+    //送出評論
+    $('#btn_AddReview').on('click',function () {
+      //確認該填地都有填寫
+      let Title = $('#txt_title').val();
+      let Review = $('#txt_review').val();
+      let bookRkey = $('#hf_bookRkey').val();
+      let UserRkey = $('#hf_UserRkey').val();
+      let score = $('input[name=score]:checked', '#div_radio').val();
+      if (Title.length == 0) {
+        //提醒標題要填寫
+      }
+      if (Review.length == 0) {
+        //提醒評論要寫
+      }
+
+      TmpVal.review.push({
+        book_Rkey:parseInt(bookRkey, 10),
+        reviewer_Rkey:parseInt(UserRkey, 10),
+        scrore:parseInt(score, 10),
+        Title:'還行吧',
+        content:'內容還可以，就是轉折有點奇怪。可以讀看看。',
+      });
+
+    });
+}
+
+function regist_onchange() {
+  
 }
 
 function regist_Select2() {
@@ -181,12 +225,19 @@ function setUser(Rkey) {
       $("#lb_showName").text("Hi," + element.FirstName);
       let content = '<h2 style="margin-top: 100px;"> 歡迎 <label style="font-weight: bold;">'+element.FirstName+'</label> 讀者，請使用搜尋列尋找你要的書!</h2> ';
       $("#div_Notice").html(content);
+      //塞Rkey到hf中
+      $('#hf_UserRkey').val(Rkey);
     }
   });
 }
 
 //搜尋用funcrion
 function search() {
+//詳細資料關起來
+$('#div_Detail').hide();
+//搜尋頁面打開
+$("#div_result").show();
+
   let Type = $('#sl2_type').val();
         let Param = $('#txt_search').val();
         //如果搜尋有結果就把notice隱藏起來
@@ -224,7 +275,7 @@ function search() {
           fulfill.forEach(function (pickedKey) {
             TmpVal.bookStock.forEach(function (books) {
               if (books.Rkey == pickedKey) {
-                innerHTML += '<div class="card"><div class="context"><div class="card-body"><div class="col-12 col-md-auto" style="width: 100%;"><div class="row"><h2><a href="#" onclick="">'+books.Title+'</a></h2></div><div class="row">by&ensp;<a href="#">'+books.Author+'</a></div><div class="row">published '+books.Year+'</div></div></div></div></div>';
+                innerHTML += '<div class="card"><div class="context"><div class="card-body"><div class="col-12 col-md-auto" style="width: 100%;"><div class="row"><h2><a href="#" onclick="bookShow('+books.Rkey+')">'+books.Title+'</a></h2></div><div class="row">by&ensp;<a href="#">'+books.Author+'</a></div><div class="row">published '+books.Year+'</div></div></div></div></div>';
               }
             })
           });
@@ -236,24 +287,52 @@ function search() {
 }
 
 function bookShow(bookRkey) {
-    //先判斷是否有這本書
+    //詳細資料打開
+    $('#div_Detail').show();
+    //搜尋頁面關起來
+    $('#div_result').hide();
     let haveBook = false;
+    let review_count = 0;
+    let review_sum = 0;
+    let html_review = '';
+    TmpVal.review.forEach(function (review) {
+      if (review.book_Rkey == bookRkey) {
+        review_count++;
+        review_sum += review.scrore;
+        let userName = '';
+        TmpVal.Users.forEach(function (user) {
+          if (user.Rkey == review.reviewer_Rkey) {
+            userName = user.UserName;
+          }
+        });
+        if (review_count == 1) {
+          html_review += '<div class="card" style="width:100%;"><div class="context"><div class="card-body"><div class="col-12 col-md-auto" style="width: 100%;"><div class="row"><label>'+userName+'&ensp;</label>&ensp;評分:&ensp;<label style="font-weight:bold;">'+review.scrore+'</label></div><div class="row"><label style="font-size:larger">'+review.Title+'</label></div><div class="row"><label>'+review.content+'</label></div></div></div></div></div>';
+        }
+        else{
+          html_review += '<div class="card" style="width:100%;margin-top: 10px;"><div class="context"><div class="card-body"><div class="col-12 col-md-auto" style="width: 100%;"><div class="row"><label>'+userName+'&ensp;</label>&ensp;評分:&ensp;<label style="font-weight:bold;">'+review.scrore+'</label></div><div class="row"><label style="font-size:larger">'+review.Title+'</label></div><div class="row"><label>'+review.content+'</label></div></div></div></div></div>';
+        }
+      }
+    });
+    $('#div_reviewCard').html(html_review);
+
+    let AvgScore = 0;
+    if (review_count > 0) {
+      //四捨五入到小數點第二位
+      AvgScore = Math.round((review_sum/review_count)*100)/100
+    }    
     TmpVal.bookStock.forEach(function (book) {
         if (book.Rkey == bookRkey) {
             haveBook = true;
+            //書本Rkey=>塞到hf中
+            $('#hf_bookRkey').val(bookRkey);
+            //書本細項
+            $('#lb_bookName').text(book.Title);
+            $('#detail_ISBN').text(book.ISBN);
+            $('#detail_Author').text(book.Author);
+            $('#detail_Year').text(book.Year);
+            $('#detail_AvScore').text(AvgScore);
         }
     })
-    if (haveBook) {
-        
-    }
-    switch (bookRkey) {
-        case 1:
-            
-            break;
-    
-        default:
-            break;
-    }
 }
 
 function test() {
@@ -266,3 +345,4 @@ function test() {
      console.log(o);
   });
 }
+
