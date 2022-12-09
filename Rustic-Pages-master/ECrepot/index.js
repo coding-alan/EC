@@ -56,6 +56,7 @@ var TmpVal = {
     {
       book_Rkey:1,
       reviewer_Rkey:2,
+      Rkey:1,
       scrore:3,
       Title:'還行吧',
       content:'內容還可以，就是轉折有點奇怪。可以讀看看。',
@@ -63,6 +64,7 @@ var TmpVal = {
     {
       book_Rkey:1,
       reviewer_Rkey:3,
+      Rkey:2,
       scrore:5,
       Title:'非常推薦',
       content:'如果你再找冒險類的小說，那就是這本了，一定要讀!!',
@@ -70,6 +72,7 @@ var TmpVal = {
     {
       book_Rkey:1,
       reviewer_Rkey:1,
+      Rkey:3,
       scrore:1,
       Title:'非常糟糕',
       content:'完全不懂在寫什麼，簡直是浪費我的生命',
@@ -128,14 +131,6 @@ function regist_onclick() {
     $('#txt_search').keyup(function (e) {
       if (e.keyCode == 108 || e.keyCode == 13) {
         search();
-        // test();
-        // $('#div_Detail').show();
-        Swal.fire({
-          title: 'Error!',
-          text: 'Do you want to continue',
-          icon: 'error',
-          confirmButtonText: 'Cool'
-        })
       }
     });
 
@@ -157,20 +152,48 @@ function regist_onclick() {
       let score = $('input[name=score]:checked', '#div_radio').val();
       if (Title.length == 0) {
         //提醒標題要填寫
+        MSG_Error('請記得要填寫標題!');
+        return;
       }
       if (Review.length == 0) {
         //提醒評論要寫
+        MSG_Error('請留下您寶貴的評論!');
+        return;
       }
+
+      let nowReview_Rkey = 0;
+      TmpVal.review.forEach(function (params) {
+        if (params.Rkey > nowReview_Rkey) {
+          nowReview_Rkey = params.Rkey;
+        }
+      });
+
+      nowReview_Rkey++;
 
       TmpVal.review.push({
         book_Rkey:parseInt(bookRkey, 10),
         reviewer_Rkey:parseInt(UserRkey, 10),
+        Rkey:nowReview_Rkey,
         scrore:parseInt(score, 10),
-        Title:'還行吧',
-        content:'內容還可以，就是轉折有點奇怪。可以讀看看。',
+        Title:Title,
+        content:Review,
       });
 
+      bookShow(bookRkey);
+
     });
+
+    //刪除評論
+    $('#btn_DeleteReview').on('click',function () {
+      let Rkey = $('#hf_reviewRkey').val();
+      let bookRkey = $('#hf_bookRkey').val();
+      let indexOfObject = TmpVal.review.findIndex(Object => {
+        return Object.Rkey == Rkey;
+      });
+
+      TmpVal.review.splice(indexOfObject,1);
+      bookShow(bookRkey);
+    })
 }
 
 function regist_onchange() {
@@ -192,7 +215,7 @@ function Login() {
     if (element.UserName.toUpperCase() == Account.toUpperCase()) {
       if (element.PassWord == PWD) {
         Valid = true;
-        $("#hf_Rkey").val(element.Rkey);
+        $("#hf_UserRkey").val(element.Rkey);
         setUser(element.Rkey);
       }
     }
@@ -295,6 +318,19 @@ function bookShow(bookRkey) {
     let review_count = 0;
     let review_sum = 0;
     let html_review = '';
+    //先抓是誰
+    let NowUser_Rkey = $('#hf_UserRkey').val();
+
+    //先把預設打開
+    $('#div_writeReview').show();
+    $('#div_MyReview').hide();
+    //還原預設值
+    $('.CL_score').prop("checked", false);
+
+    $('#rad_score1').prop("checked",true);
+    $('#txt_title').val('');
+    $('#txt_review').val('');
+
     TmpVal.review.forEach(function (review) {
       if (review.book_Rkey == bookRkey) {
         review_count++;
@@ -305,11 +341,22 @@ function bookShow(bookRkey) {
             userName = user.UserName;
           }
         });
-        if (review_count == 1) {
+        if (review_count == 1 && review.reviewer_Rkey != NowUser_Rkey) {
           html_review += '<div class="card" style="width:100%;"><div class="context"><div class="card-body"><div class="col-12 col-md-auto" style="width: 100%;"><div class="row"><label>'+userName+'&ensp;</label>&ensp;評分:&ensp;<label style="font-weight:bold;">'+review.scrore+'</label></div><div class="row"><label style="font-size:larger">'+review.Title+'</label></div><div class="row"><label>'+review.content+'</label></div></div></div></div></div>';
         }
-        else{
+        else if(review.reviewer_Rkey != NowUser_Rkey){
           html_review += '<div class="card" style="width:100%;margin-top: 10px;"><div class="context"><div class="card-body"><div class="col-12 col-md-auto" style="width: 100%;"><div class="row"><label>'+userName+'&ensp;</label>&ensp;評分:&ensp;<label style="font-weight:bold;">'+review.scrore+'</label></div><div class="row"><label style="font-size:larger">'+review.Title+'</label></div><div class="row"><label>'+review.content+'</label></div></div></div></div></div>';
+        }
+        else{
+          //塞bookRkey
+          $('#hf_reviewRkey').val(review.Rkey);
+          $('#lb_MyReview_Account').text('您的');
+          $('#lb_MyReview_Score').text(review.scrore);
+          $('#lb_MyReview_Title').text(review.Title);
+          $('#lb_MyReview_Content').text(review.content);
+          //切換div
+          $('#div_writeReview').hide();
+          $('#div_MyReview').show();
         }
       }
     });
@@ -344,5 +391,23 @@ function test() {
   }).done(function( o) {
      console.log(o);
   });
+}
+
+function MSG_Error(params) {
+  Swal.fire({
+    title: '發生錯誤!',
+    text: params,
+    icon: 'error',
+    confirmButtonText: 'OK'
+  })
+}
+
+function MSG_Correct(params) {
+  Swal.fire({
+    title: '執行成功!',
+    text: params,
+    icon: 'success',
+    confirmButtonText: 'OK'
+  })
 }
 
