@@ -38,8 +38,7 @@
     <form id="form1" runat="server">
     <div id="div_nav">
         <nav class="navbar navbar-light justify-content-between" style="background-color: #e3f2fd;">
-            <div class="col-12 col-md-auto" style="width: 100%;">
-                <input type="hidden" id="hf_Rkey">
+            <div class="col-12 col-md-auto" style="width: 100%;">                
                 <div class="row">
                     <div class="col-4" style="text-align:left;">
                         <i class="fa-solid fa-book-bookmark"></i>
@@ -105,6 +104,7 @@
     <div id="div_main" style="display: none;">
         <input type="hidden" id="hf_UserRkey"/>
         <input type="hidden" id="hf_bookRkey"/>
+        <input type="hidden" id="hf_reviewRkey"/>
         <div id="div_Notice" style="text-align: center;"></div>
         <div id="div_result" style="display: none;text-align: center; width: 80%;margin-left:10%; margin-top: 20px;"></div>
     </div>
@@ -151,51 +151,77 @@
                 </div>
             </div>
             <br />
-            <div class="row" style="margin-bottom: -20px;">
-                <h3><label id="detail_review">寫下評論吧!</label></h3>
-            </div>
-            <hr />
         </div>
-        <div class="card">
-            <div class="context">
-                <div class="card-body">
-                    <div class="col-12 col-md-auto" style="width: 100%;">
-                        <div class="row" id="div_radio">
-                            評分：
-                            &ensp;&ensp;&ensp;&ensp;
-                            <input type="radio" name="score" id="rad_score1" value="1" checked />&ensp;1
-                            &ensp;&ensp;&ensp;
-                            <input type="radio" name="score" id="rad_score2" value="2" />&ensp;2
-                            &ensp;&ensp;&ensp;
-                            <input type="radio" name="score" id="rad_score3" value="3" />&ensp;3
-                            &ensp;&ensp;&ensp;
-                            <input type="radio" name="score" id="rad_score4" value="4" />&ensp;4
-                            &ensp;&ensp;&ensp;
-                            <input type="radio" name="score" id="rad_score5" value="5" />&ensp;5
+        <div id="div_writeReview">
+            <div class="col-12 col-md-auto" style="width: 100%;">
+                <div class="row" style="margin-bottom: -20px;">
+                    <h3><label id="detail_review">寫下評論吧!</label></h3>
+                </div>
+                <hr />
+            </div>
+            <div class="card">
+                <div class="context">
+                    <div class="card-body">
+                        <div class="col-12 col-md-auto" style="width: 100%;">
+                            <div class="row" id="div_radio">
+                                評分：
+                                &ensp;&ensp;&ensp;&ensp;
+                                <input type="radio" class="CL_score" name="score" id="rad_score1" value="1" checked />&ensp;1
+                                &ensp;&ensp;&ensp;
+                                <input type="radio" class="CL_score" name="score" id="rad_score2" value="2" />&ensp;2
+                                &ensp;&ensp;&ensp;
+                                <input type="radio" class="CL_score" name="score" id="rad_score3" value="3" />&ensp;3
+                                &ensp;&ensp;&ensp;
+                                <input type="radio" class="CL_score" name="score" id="rad_score4" value="4" />&ensp;4
+                                &ensp;&ensp;&ensp;
+                                <input type="radio" class="CL_score" name="score" id="rad_score5" value="5" />&ensp;5
+                            </div>
+                            <br />
+                            <div class="row">
+                                標題：
+                            </div>
+                            <div class="row">
+                                <input type="search" class="form-control" id="txt_title" style="width:100%" />
+                            </div>
+                            <div class="row">
+                                <label style="font-size:smaller;color:gray;">標題需要在0-100字以內</label>
+                            </div>
+                            <br />
+                            <div class="row">
+                                評論：
+                            </div>
+                            <div class="row">
+                                <input type="search" class="form-control" id="txt_review" style="width:100%" />
+                            </div>
+                            <div class="row">
+                                <label style="font-size:smaller;color:gray;">評論需要在0-300字以內</label>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <button class="btn btn-primary" id="btn_AddReview" type="button">送出評論</button>
+                            </div>
                         </div>
-                        <br />
-                        <div class="row">
-                            標題：
-                        </div>
-                        <div class="row">
-                            <input type="search" class="form-control" id="txt_title" style="width:100%" />
-                        </div>
-                        <div class="row">
-                            <label style="font-size:smaller;color:gray;">標題需要在0-100字以內</label>
-                        </div>
-                        <br />
-                        <div class="row">
-                            評論：
-                        </div>
-                        <div class="row">
-                            <input type="search" class="form-control" id="txt_review" style="width:100%" />
-                        </div>
-                        <div class="row">
-                            <label style="font-size:smaller;color:gray;">評論需要在0-300字以內</label>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <button class="btn btn-primary" id="btn_AddReview" type="button">送出評論</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="div_MyReview" style="display: none;">
+            <div class="card" style="width:100%;margin-top: 10px;">
+                <div class="context">
+                    <div class="card-body">
+                        <div class="col-12 col-md-auto" style="width: 100%;">
+                            <div class="row">
+                                <label id="lb_MyReview_Account"></label>評分:&ensp;<label style="font-weight:bold;" id="lb_MyReview_Score"></label>
+                            </div>
+                            <div class="row">
+                                <label style="font-size:larger" id="lb_MyReview_Title"></label>
+                            </div>
+                            <div class="row">
+                                <label id="lb_MyReview_Content"></label>
+                            </div>
+                            <div class="row">
+                                <button type="button" id="btn_DeleteReview" class="btn btn-primary">刪除評論</button>
+                            </div>
                         </div>
                     </div>
                 </div>
