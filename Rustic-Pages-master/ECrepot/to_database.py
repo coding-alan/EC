@@ -124,5 +124,5 @@ if __name__ == "__main__":
     rsp = get_item({"ID":{"S":"judith"}})
     print(rsp['Item'])
     print("="*60)
-    rsp = delete_item({"ID":{"S":"judith"}})
-    print(rsp)
+    #rsp = delete_item({"ID":{"S":"judith"}})
+    #print(rsp)
