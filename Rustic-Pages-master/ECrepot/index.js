@@ -6,11 +6,7 @@ var TmpVal = {
       Author: "Martin",
       ISBN: "978-957-511-785-6",
       Year: "2008",
-<<<<<<< HEAD
-      cover: "BookCover/52WIT00108.png",
-=======
       Cover: "BookCover/52WIT00108.png",
->>>>>>> WIP
     },
     {
       Rkey: 2,
@@ -140,12 +136,8 @@ function regist_onclick() {
 
   //搜尋按鈕
   $("#btn_Search").on("click", function () {
-<<<<<<< HEAD
-    search();
-=======
       search();
       test();
->>>>>>> WIP
   });
   //按enter搜尋
   $("#txt_search").keyup(function (e) {
@@ -433,18 +425,12 @@ function bookShow(bookRkey) {
 function test() {
   console.log("AA");
   $.ajax({
-<<<<<<< HEAD
-    type: "GET",
-    url: "test.py",
-    data: { param1: true, param2: 0 },
-=======
     type: "POST",
     url: "to_database.py/insert",
       data: JSON.stringify({
           "table": "Book",
           "Rkey":"test",
       }),
->>>>>>> WIP
   }).done(function (o) {
     console.log(o);
   });
