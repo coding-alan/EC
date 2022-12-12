@@ -14,7 +14,7 @@ var TmpVal = {
       Author: "Alan",
       ISBN: "978-957-511-785-7",
       Year: "2020",
-      Cover: "BookCover/52WIT00108.png",
+      Cover: "BookCover/sanu.jpg",
     },
     {
       Rkey: 3,
@@ -81,13 +81,13 @@ var TmpVal = {
       content: "完全不懂在寫什麼，簡直是浪費我的生命",
     },
   ],
-  cart:[
+  cart: [
     {
-      Rkey:1,
-      buyer_Rkey:1,
-      book_Rkey:1,
-      count:2,
-    }
+      Rkey: 1,
+      buyer_Rkey: 1,
+      book_Rkey: 1,
+      count: 2,
+    },
   ],
 };
 
@@ -136,8 +136,8 @@ function regist_onclick() {
 
   //搜尋按鈕
   $("#btn_Search").on("click", function () {
-      search();
-      test();
+    search();
+    //test();
   });
   //按enter搜尋
   $("#txt_search").keyup(function (e) {
@@ -210,6 +210,35 @@ function regist_onclick() {
   $("#btn_shoppingCart").on("click", function () {
     $("#modal_ShoppingCart").modal("show");
   });
+
+  //加到購物車
+  $("#btn_Add2Cart").on("click", function () {
+    //先確認是否有重複的書，如果有的話數量+1
+    let haveInCart = false;
+    let WantBook_Rkey = $("#hf_bookRkey").val();
+    let User_Rkey = $("#hf_UserRkey").val();
+    let latest_Rkey = 0;
+    TmpVal.cart.forEach(function (params) {
+      if (params.book_Rkey == WantBook_Rkey && params.buyer_Rkey == User_Rkey) {
+        params.count += 1;
+        haveInCart = true;
+      }
+
+      if (params.Rkey > latest_Rkey) {
+        latest_Rkey = params.Rkey;
+      }
+    });
+    latest_Rkey++;
+    if (!haveInCart) {
+      TmpVal.cart.push({
+        Rkey: latest_Rkey,
+        buyer_Rkey: parseInt(User_Rkey, 10),
+        book_Rkey: parseInt(WantBook_Rkey, 10),
+        count: 1,
+      });
+    }
+    Refresh_CartCount();
+  });
 }
 
 function regist_onchange() {}
@@ -240,8 +269,9 @@ function Login() {
     $("#div_AfterLogin").show();
     $("#div_search").show();
     Default();
+    Refresh_CartCount();
   } else {
-    alert("You have either wrong Account or Password, Please check again.");
+    alert("請確認帳號及密碼是否均正確。");
   }
 }
 
@@ -333,6 +363,7 @@ function search() {
   }
 }
 
+//檢視書本詳細資料
 function bookShow(bookRkey) {
   //詳細資料打開
   $("#div_Detail").show();
@@ -418,6 +449,8 @@ function bookShow(bookRkey) {
       $("#detail_Author").text(book.Author);
       $("#detail_Year").text(book.Year);
       $("#detail_AvScore").text(AvgScore);
+      //書本封面
+      $("#img_Cover").attr("src", book.Cover);
     }
   });
 }
@@ -427,15 +460,16 @@ function test() {
   $.ajax({
     type: "POST",
     url: "to_database.py/insert",
-      data: JSON.stringify({
-          "table": "Book",
-          "Rkey":"test",
-      }),
+    data: JSON.stringify({
+      table: "Book",
+      Rkey: "test",
+    }),
   }).done(function (o) {
     console.log(o);
   });
 }
 
+//錯誤訊息
 function MSG_Error(params) {
   Swal.fire({
     title: "發生錯誤!",
@@ -444,7 +478,7 @@ function MSG_Error(params) {
     confirmButtonText: "OK",
   });
 }
-
+//正確訊息
 function MSG_Correct(params) {
   Swal.fire({
     title: "執行成功!",
@@ -452,4 +486,18 @@ function MSG_Correct(params) {
     icon: "success",
     confirmButtonText: "OK",
   });
+}
+
+//更新購物車數量
+function Refresh_CartCount() {
+  //先確認全部的數量
+  let User = $("#hf_UserRkey").val();
+  let total_count = 0;
+  TmpVal.cart.forEach(function (params) {
+    if (params.buyer_Rkey == User) {
+      total_count += params.count;
+    }
+  });
+  console.log(TmpVal.cart);
+  $("#cart_count").text(total_count);
 }

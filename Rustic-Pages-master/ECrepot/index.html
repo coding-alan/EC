@@ -83,7 +83,7 @@
                                 <label id="lb_showName">Hi,TheonleOne !!</label>
                                 &ensp;&ensp;&ensp;
                                 <button class="btn btn-outline-success" type="button" id="btn_shoppingCart">
-                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    <i class="fa-solid fa-cart-shopping"></i>&ensp;&ensp;<span class="badge badge-pill badge-success" id="cart_count">4</span>
                                 </button>                                
                                 <button class="btn btn-outline-primary" type="button" id="btn_LogOut">登出</button>
                             </div>
@@ -170,10 +170,13 @@
                         </div>
                     </div>
                     <br />
+                    <div class="row">
+                        <button type="button" class="btn btn-primary" id="btn_Add2Cart"><i class="fa-solid fa-cart-shopping"></i>&ensp;&ensp;加到購物車</button>
+                    </div>
                 </div>
                 <div class="col-4 col-md" style="text-align: center;min-width: 40%;max-width: 40;">
                     <div class="row" id="div_bookCover">
-                        <img src="BookCover/52WIT00108.png">
+                        <img id="img_Cover" src="BookCover/52WIT00108.png">
                     </div>
                 </div>
                 <br />
@@ -281,33 +284,70 @@
                         </button>                        
                     </div>
                     <div class="modal-body" style="max-height: 800px; overflow: auto;">
-                        <div class="row nxtRow">
-                            <div class="col-md-2" style="text-align: right;">
-                                <label class="col-form-label">檔案路徑&nbsp;</label>
-                            </div>
-                            <div class="col-md-8">
-                                <input id="TextFileUpload_Gen" name="FileUpload" type="file" class="form-control"
-                                    multiple="multiple" style="height: 50px;" />&nbsp;
-                            </div>
-                            <div class="col-md-2">
-                                <input id="ButtonFileUpload_Gen" type="button" class="btn btn-success" value="檔案上傳" />
+                        <div class="card" style="width:100%;margin-top: 10px;" id="cart_01">
+                            <div class="context">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-3 col-md" style="max-width: 33%;min-width: 33%; text-align: center;">
+                                            <img src="BookCover/52WIT00108.png" style="max-height: 80px;">
+                                        </div>
+                                        <div class="col-9 col-md" style="max-width: 67%;min-width: 67%;align-items: center;display: grid;">
+                                            <div class="row">
+                                                <div class="col-4 col-md">
+                                                    <h5><label id="lb_cartName_01">資訊管理</label></h5>
+                                                </div>
+                                                <div class="col-3 col-md">
+                                                    <i class="fa-solid fa-circle-info"></i>&ensp;<label id="lb_cartCost_01">500</label>
+                                                </div>
+                                                <div class="col-5 col-md">
+                                                    <div class="input-group">
+                                                        <button type="button" class="btn btn-success" id="btn_cartM_01">-</button>
+                                                        &ensp;
+                                                        <input type="text" class="form-control" style="text-align: center;" value="2" id="txt_cartCount" readonly/>
+                                                        &ensp;
+                                                        <button type="button" class="btn btn-success" id="btn_cartP_01">+</button>
+                                                        &ensp;
+                                                        <button type="button" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <hr />
-                        <table class="table" id="table_GenAtt" cellspacing="1" rules="all" gridline="Horizontal"
-                            border="1px"
-                            style="background-color: cornflowerblue; border-style: None; border-collapse: collapse;">
-                            <thead>
-                                <tr
-                                    style="color: White; background-color: cornflowerblue; font-size: small; font-weight: bold;">
-                                    <th style="text-align: center; vertical-align: middle; width: 30%;" scope="col">功能
-                                    </th>
-                                    <th style="text-align: center; vertical-align: middle; width: 70%;" scope="col">檔案
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+                        <div class="card" style="width:100%;margin-top: 10px;" id="cart_01">
+                            <div class="context">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-3 col-md" style="max-width: 33%;min-width: 33%; text-align: center;">
+                                            <img src="BookCover/52WIT00108.png" style="max-height: 80px;">
+                                        </div>
+                                        <div class="col-9 col-md" style="max-width: 67%;min-width: 67%;align-items: center;display: grid;">
+                                            <div class="row">
+                                                <div class="col-4 col-md">
+                                                    <h5><label id="lb_cartName_01">資訊管理</label></h5>
+                                                </div>
+                                                <div class="col-3 col-md">
+                                                    <i class="fa-solid fa-circle-info"></i>&ensp;<label id="lb_cartCost_01">500</label>
+                                                </div>
+                                                <div class="col-5 col-md">
+                                                    <div class="input-group">
+                                                        <button type="button" class="btn btn-success" id="btn_cartM_01">-</button>
+                                                        &ensp;
+                                                        <input type="text" class="form-control" style="text-align: center;" value="2" id="txt_cartCount" readonly/>
+                                                        &ensp;
+                                                        <button type="button" class="btn btn-success" id="btn_cartP_01">+</button>
+                                                        &ensp;
+                                                        <button type="button" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer"></div>
                 </div>
