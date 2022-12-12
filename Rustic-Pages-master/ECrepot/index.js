@@ -6,7 +6,7 @@ var TmpVal = {
       Author: "Martin",
       ISBN: "978-957-511-785-6",
       Year: "2008",
-      cover: "BookCover/52WIT00108.png",
+      Cover: "BookCover/52WIT00108.png",
     },
     {
       Rkey: 2,
@@ -14,6 +14,7 @@ var TmpVal = {
       Author: "Alan",
       ISBN: "978-957-511-785-7",
       Year: "2020",
+      Cover: "BookCover/52WIT00108.png",
     },
     {
       Rkey: 3,
@@ -21,6 +22,7 @@ var TmpVal = {
       Author: "Judith",
       ISBN: "978-957-511-785-8",
       Year: "2010",
+      Cover: "BookCover/52WIT00108.png",
     },
   ],
   Users: [
@@ -134,7 +136,8 @@ function regist_onclick() {
 
   //搜尋按鈕
   $("#btn_Search").on("click", function () {
-    search();
+      search();
+      test();
   });
   //按enter搜尋
   $("#txt_search").keyup(function (e) {
@@ -422,9 +425,12 @@ function bookShow(bookRkey) {
 function test() {
   console.log("AA");
   $.ajax({
-    type: "GET",
-    url: "test.py",
-    data: { param1: true, param2: 0 },
+    type: "POST",
+    url: "to_database.py/insert",
+      data: JSON.stringify({
+          "table": "Book",
+          "Rkey":"test",
+      }),
   }).done(function (o) {
     console.log(o);
   });
