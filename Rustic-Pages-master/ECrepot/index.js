@@ -488,7 +488,7 @@ function MSG_Correct(params) {
   });
 }
 
-//更新購物車數量
+//更新購物車數量 1
 function Refresh_CartCount() {
   //先確認全部的數量
   let User = $("#hf_UserRkey").val();
