@@ -7,6 +7,7 @@ var TmpVal = {
       ISBN: "978-957-511-785-6",
       Year: "2008",
       Cover: "BookCover/52WIT00108.png",
+      Price: 500,
     },
     {
       Rkey: 2,
@@ -15,6 +16,7 @@ var TmpVal = {
       ISBN: "978-957-511-785-7",
       Year: "2020",
       Cover: "BookCover/sanu.jpg",
+      Price: 700,
     },
     {
       Rkey: 3,
@@ -23,6 +25,7 @@ var TmpVal = {
       ISBN: "978-957-511-785-8",
       Year: "2010",
       Cover: "BookCover/52WIT00108.png",
+      Price: 550,
     },
   ],
   Users: [
@@ -500,4 +503,39 @@ function Refresh_CartCount() {
   });
   console.log(TmpVal.cart);
   $("#cart_count").text(total_count);
+}
+
+//產生購物車品項
+function GainCartBook(params) {
+  let innerHML = "";
+  TmpVal.cart.forEach(function (cart) {
+    if (cart.buyer_Rkey == params) {
+      TmpVal.bookStock.forEach(function (book) {
+        innerHML +=
+          '<div class="card" style="width:100%;margin-top: 10px;" id="cart_' +
+          cart.Rkey +
+          '><div class="context"><div class="card-body"><div class="row"><div class="col-3 col-md" style="max-width: 33%;min-width: 33%; text-align: center;"><img src="' +
+          book.Cover +
+          '" style="max-height: 80px;"></div><div class="col-9 col-md" style="max-width: 67%;min-width: 67%;align-items: center;display: grid;"><div class="row"><div class="col-4 col-md"><h5><label id="lb_cartName_' +
+          book.Rkey +
+          '">' +
+          book.Title +
+          '</label></h5></div><div class="col-2 col-md"><i class="fa-solid fa-circle-info"></i>&ensp;<label id="lb_cartCost_' +
+          book.Rkey +
+          '">' +
+          book.Price +
+          '</label></div><div class="col-6 col-md" style="min-width: 40%;"><div class="input-group"><button type="button" class="btn btn-success" id="btn_cartM_' +
+          book.Rkey +
+          '">-</button>&ensp;<input type="text" class="form-control" style="text-align: center; max-width: 60px;" value="' +
+          cart.count +
+          '" id="txt_cartCount_' +
+          book.Rkey +
+          '" readonly/>&ensp;<button type="button" class="btn btn-success" id="btn_cartP_' +
+          book.Rkey +
+          '">+</button>&ensp;<button type="button" class="btn btn-outline-danger" id="btn_cart_Del_' +
+          book.Rkey +
+          '"><i class="fa-regular fa-trash-can"></i></button></div></div></div></div></div></div></div></div>';
+      });
+    }
+  });
 }
