@@ -35,6 +35,7 @@ var TmpVal = {
       Rkey: 1,
       FirstName: "品堯",
       LastName: "黃",
+      wallet:2000,
     },
     {
       UserName: "Alan",
@@ -42,6 +43,7 @@ var TmpVal = {
       Rkey: 2,
       FirstName: "弘騰",
       LastName: "沈",
+      wallet:2000,
     },
     {
       UserName: "Judith",
@@ -49,6 +51,7 @@ var TmpVal = {
       Rkey: 3,
       FirstName: "文宸",
       LastName: "李",
+      wallet:2000,
     },
     {
       UserName: "M",
@@ -56,6 +59,7 @@ var TmpVal = {
       Rkey: 4,
       FirstName: "測試",
       LastName: "測試",
+      wallet:999999,
     },
   ],
   review: [
@@ -212,6 +216,9 @@ function regist_onclick() {
   //購物車
   $("#btn_shoppingCart").on("click", function () {
     $("#modal_ShoppingCart").modal("show");
+    let User_Rkey = $("#hf_UserRkey").val();
+    $("#div_cart").html("");
+    GainCartBook(User_Rkey);
   });
 
   //加到購物車
@@ -241,6 +248,33 @@ function regist_onclick() {
       });
     }
     Refresh_CartCount();
+  });
+
+  //結帳
+  $('#btn_checkOut').on('click',function () {
+    let user_Rkey = $('#hf_UserRkey').val();
+    //先確認是否夠代幣
+    let total_count = 0;
+    let wallet = 0;
+    TmpVal.Users.forEach(function (params) {
+      if (params.Rkey == user_Rkey) {
+        wallet += params.wallet;
+      }
+    });
+    TmpVal.cart.forEach(function (cart) {
+      if (cart.buyer_Rkey == user_Rkey) {
+        TmpVal.bookStock.forEach(function (book) {
+          if (cart.book_Rkey == book.Rkey) {
+            total_count += parseInt(cart.count,10)*parseInt(book.Price,10);
+          }
+        });
+      }
+    });
+
+    if (total_count > wallet) {
+      MSG_Error('您的代幣不足，請先購買代幣。');
+    };
+    
   });
 }
 
@@ -508,34 +542,47 @@ function Refresh_CartCount() {
 //產生購物車品項
 function GainCartBook(params) {
   let innerHML = "";
+  let total_count = 0;
   TmpVal.cart.forEach(function (cart) {
     if (cart.buyer_Rkey == params) {
       TmpVal.bookStock.forEach(function (book) {
-        innerHML +=
-          '<div class="card" style="width:100%;margin-top: 10px;" id="cart_' +
-          cart.Rkey +
-          '><div class="context"><div class="card-body"><div class="row"><div class="col-3 col-md" style="max-width: 33%;min-width: 33%; text-align: center;"><img src="' +
-          book.Cover +
-          '" style="max-height: 80px;"></div><div class="col-9 col-md" style="max-width: 67%;min-width: 67%;align-items: center;display: grid;"><div class="row"><div class="col-4 col-md"><h5><label id="lb_cartName_' +
-          book.Rkey +
-          '">' +
-          book.Title +
-          '</label></h5></div><div class="col-2 col-md"><i class="fa-solid fa-circle-info"></i>&ensp;<label id="lb_cartCost_' +
-          book.Rkey +
-          '">' +
-          book.Price +
-          '</label></div><div class="col-6 col-md" style="min-width: 40%;"><div class="input-group"><button type="button" class="btn btn-success" id="btn_cartM_' +
-          book.Rkey +
-          '">-</button>&ensp;<input type="text" class="form-control" style="text-align: center; max-width: 60px;" value="' +
-          cart.count +
-          '" id="txt_cartCount_' +
-          book.Rkey +
-          '" readonly/>&ensp;<button type="button" class="btn btn-success" id="btn_cartP_' +
-          book.Rkey +
-          '">+</button>&ensp;<button type="button" class="btn btn-outline-danger" id="btn_cart_Del_' +
-          book.Rkey +
-          '"><i class="fa-regular fa-trash-can"></i></button></div></div></div></div></div></div></div></div>';
+        if (cart.book_Rkey == book.Rkey) {
+          innerHML +=
+            '<div class="card" style="width:100%;margin-top: 10px;" id="cart_' +
+            cart.Rkey +
+            '><div class="context"><div class="card-body"><div class="row"><div class="col-3 col-md" style="max-width: 33%;min-width: 33%; text-align: center;"><img src="' +
+            book.Cover +
+            '" style="max-height: 80px;"></div><div class="col-9 col-md" style="max-width: 67%;min-width: 67%;align-items: center;display: grid;"><div class="row"><div class="col-4 col-md"><h5><label id="lb_cartName_' +
+            book.Rkey +
+            '">' +
+            book.Title +
+            '</label></h5></div><div class="col-2 col-md"><i class="fa-solid fa-circle-info"></i>&ensp;<label id="lb_cartCost_' +
+            book.Rkey +
+            '">' +
+            book.Price +
+            '</label></div><div class="col-6 col-md" style="min-width: 40%;"><div class="input-group"><button type="button" class="btn btn-success" id="btn_cartM_' +
+            book.Rkey +
+            '">-</button>&ensp;<input type="text" class="form-control" style="text-align: center; max-width: 60px;" value="' +
+            cart.count +
+            '" id="txt_cartCount_' +
+            book.Rkey +
+            '" readonly/>&ensp;<button type="button" class="btn btn-success" id="btn_cartP_' +
+            book.Rkey +
+            '">+</button>&ensp;<button type="button" class="btn btn-outline-danger" id="btn_cart_Del_' +
+            book.Rkey +
+            '"><i class="fa-regular fa-trash-can"></i></button></div></div></div></div></div></div></div></div>';
+          total_count += parseInt(book.Price, 10) * parseInt(cart.count, 10);
+        }
       });
     }
   });
+  if (innerHML != '') {
+    innerHML +=
+    '<div class="row" style="text-align: right;display: block;margin-top: 20px;margin-right: 10px;"><label style="font-weight: 800;">總共：</label>&ensp;<label id="lb_cartAmout">'+total_count+'</label>&ensp;&ensp;<i class="fa-solid fa-circle-info"></i></div>';
+  }
+  else{
+    innerHML += '購物車空空如也~';
+  }
+  
+  $("#div_cart").html(innerHML);
 }
