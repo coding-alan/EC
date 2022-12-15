@@ -267,7 +267,6 @@ var TmpVal = {
 
 $(function () {
   regist_onclick();
-  regist_onchange();
   // $("#txt_LogAccount").val("m");
   // $("#txt_LogPWD").val("0");
   // Login();
@@ -284,7 +283,6 @@ function regist_onclick() {
       Login();
     }
   });
-
   //登出按鈕
   $("#btn_LogOut").on("click", function () {
     //畫面切換
@@ -295,7 +293,6 @@ function regist_onclick() {
     $("#div_regist").show();
     clrDefault();
   });
-
   //搜尋按鈕
   $("#btn_Search").on("click", function () {
     search();
@@ -307,7 +304,6 @@ function regist_onclick() {
       search();
     }
   });
-
   //書本細項上一頁
   $("#btn_prePage").on("click", function () {
     //詳細資料關起來
@@ -315,7 +311,6 @@ function regist_onclick() {
     //搜尋頁面打開
     $("#div_result").show();
   });
-
   //送出評論
   $("#btn_AddReview").on("click", function () {
     //確認該填地都有填寫
@@ -355,7 +350,6 @@ function regist_onclick() {
 
     bookShow(bookRkey);
   });
-
   //刪除評論
   $("#btn_DeleteReview").on("click", function () {
     let Rkey = $("#hf_reviewRkey").val();
@@ -367,7 +361,6 @@ function regist_onclick() {
     TmpVal.review.splice(indexOfObject, 1);
     bookShow(bookRkey);
   });
-
   //購物車
   $("#btn_shoppingCart").on("click", function () {
     $("#modal_ShoppingCart").modal("show");
@@ -375,7 +368,6 @@ function regist_onclick() {
     $("#div_cart").html("");
     GainCartBook(User_Rkey);
   });
-
   //加到購物車
   $("#btn_Add2Cart").on("click", function () {
     //先確認是否有重複的書，如果有的話數量+1
@@ -404,7 +396,6 @@ function regist_onclick() {
     }
     Refresh_CartCount();
   });
-
   //結帳
   $("#btn_checkOut").on("click", function () {
     let user_Rkey = $("#hf_UserRkey").val();
@@ -459,7 +450,6 @@ function regist_onclick() {
     setUser(user_Rkey);
     MSG_Correct("結帳成功，感謝您的惠顧。");
   });
-
   //註冊
   $('#btn_SingUp').on('click',function () {
     let LastName = $('#txt_NewLastName').val();
@@ -652,7 +642,7 @@ function bookShow(bookRkey) {
           review.scrore +
           '</label></div><div class="row"><label style="font-size:larger">' +
           review.Title +
-          '</label></div><div class="row"><label>' +
+          '</label></div><div class="row"><label style="text-align: left;">' +
           review.content +
           "</label></div></div></div></div></div>";
       } else if (review.reviewer_Rkey != NowUser_Rkey) {
@@ -663,7 +653,7 @@ function bookShow(bookRkey) {
           review.scrore +
           '</label></div><div class="row"><label style="font-size:larger">' +
           review.Title +
-          '</label></div><div class="row"><label>' +
+          '</label></div><div class="row"><label style="text-align: left;">' +
           review.content +
           "</label></div></div></div></div></div>";
       } else {
@@ -735,7 +725,7 @@ function MSG_Correct(params) {
   });
 }
 
-//更新購物車數量 1
+//更新購物車數量
 function Refresh_CartCount() {
   //先確認全部的數量
   let User = $("#hf_UserRkey").val();
