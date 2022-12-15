@@ -262,12 +262,7 @@ var TmpVal = {
     },
   ],
   cart: [
-    {
-      Rkey: 1,
-      buyer_Rkey: 1,
-      book_Rkey: 1,
-      count: 2,
-    },
+    
   ],
   order: [],
 };
