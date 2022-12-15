@@ -35,7 +35,7 @@ var TmpVal = {
       Rkey: 1,
       FirstName: "品堯",
       LastName: "黃",
-      wallet:2000,
+      wallet: 2000,
     },
     {
       UserName: "Alan",
@@ -43,7 +43,7 @@ var TmpVal = {
       Rkey: 2,
       FirstName: "弘騰",
       LastName: "沈",
-      wallet:2000,
+      wallet: 2000,
     },
     {
       UserName: "Judith",
@@ -51,7 +51,7 @@ var TmpVal = {
       Rkey: 3,
       FirstName: "文宸",
       LastName: "李",
-      wallet:2000,
+      wallet: 2000,
     },
     {
       UserName: "M",
@@ -59,7 +59,7 @@ var TmpVal = {
       Rkey: 4,
       FirstName: "測試",
       LastName: "測試",
-      wallet:999999,
+      wallet: 999999,
     },
   ],
   review: [
@@ -96,6 +96,7 @@ var TmpVal = {
       count: 2,
     },
   ],
+  order: [],
 };
 
 $(function () {
@@ -251,8 +252,8 @@ function regist_onclick() {
   });
 
   //結帳
-  $('#btn_checkOut').on('click',function () {
-    let user_Rkey = $('#hf_UserRkey').val();
+  $("#btn_checkOut").on("click", function () {
+    let user_Rkey = $("#hf_UserRkey").val();
     //先確認是否夠代幣
     let total_count = 0;
     let wallet = 0;
@@ -265,16 +266,33 @@ function regist_onclick() {
       if (cart.buyer_Rkey == user_Rkey) {
         TmpVal.bookStock.forEach(function (book) {
           if (cart.book_Rkey == book.Rkey) {
-            total_count += parseInt(cart.count,10)*parseInt(book.Price,10);
+            total_count += parseInt(cart.count, 10) * parseInt(book.Price, 10);
           }
         });
       }
     });
 
     if (total_count > wallet) {
-      MSG_Error('您的代幣不足，請先購買代幣。');
-    };
+      MSG_Error("您的代幣不足，請先購買代幣。");
+      return;
+    }
     
+      TmpVal.cart.forEach(function (cart) {
+          if (cart.buyer_Rkey == user_Rkey) {
+              //添加到Order裏面
+              TmpVal.order.push(cart);
+              //刪除購物車的資料
+              let indexOfObject = TmpVal.cart.findIndex((Object) => {
+                return Object.Rkey == cart.Rkey;
+              });
+              TmpVal.cart.splice(indexOfObject, 1);
+          }
+      });
+      
+      $('#modal_ShoppingCart').modal('hide');
+      Refresh_CartCount();
+
+    MSG_Correct("結帳成功，感謝您的惠顧。");
   });
 }
 
@@ -576,13 +594,14 @@ function GainCartBook(params) {
       });
     }
   });
-  if (innerHML != '') {
+  if (innerHML != "") {
     innerHML +=
-    '<div class="row" style="text-align: right;display: block;margin-top: 20px;margin-right: 10px;"><label style="font-weight: 800;">總共：</label>&ensp;<label id="lb_cartAmout">'+total_count+'</label>&ensp;&ensp;<i class="fa-solid fa-circle-info"></i></div>';
+      '<div class="row" style="text-align: right;display: block;margin-top: 20px;margin-right: 10px;"><label style="font-weight: 800;">總共：</label>&ensp;<label id="lb_cartAmout">' +
+      total_count +
+      '</label>&ensp;&ensp;<i class="fa-solid fa-circle-info"></i></div>';
+  } else {
+    innerHML += "購物車空空如也~";
   }
-  else{
-    innerHML += '購物車空空如也~';
-  }
-  
+
   $("#div_cart").html(innerHML);
 }
