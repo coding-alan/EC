@@ -80,7 +80,7 @@
                                 <button class="btn btn-outline-success" type="button" id="btn_Login">登入</button>
                             </div>
                             <div id="div_AfterLogin" style="display: none;">
-                                <label id="lb_showName">Hi,TheonleOne !!</label>
+                                <label id="lb_showName"></label>
                                 &ensp;&ensp;&ensp;
                                 <button class="btn btn-outline-success" type="button" id="btn_shoppingCart">
                                     <i class="fa-solid fa-cart-shopping"></i>&ensp;&ensp;<span class="badge badge-pill badge-success" id="cart_count">4</span>
@@ -101,16 +101,16 @@
                     <div class="col-4">
                         <div class="input-group">
                             <input type="search" class="form-control" placeholder="姓氏" aria-label="Last Name"
-                                aria-describedby="basic-addon1">
+                                aria-describedby="basic-addon1" id="txt_NewLastName">
                             <input type="search" class="form-control" placeholder="名" aria-label="First Name"
-                                aria-describedby="basic-addon1">
+                                aria-describedby="basic-addon1" id="txt_NewFirstName">
                         </div>
                         <br />
                         <input type="search" class="form-control" placeholder="帳號名稱" aria-label="Acoount"
-                            aria-describedby="basic-addon1">
+                            aria-describedby="basic-addon1" id="txt_NewAcoount">
                         <br />
                         <input type="password" class="form-control" placeholder="密碼" aria-label="Password"
-                            aria-describedby="basic-addon1">
+                            aria-describedby="basic-addon1" id="txt_NewPassword">
                         <br />
                         <button class="btn btn-primary" type="button" id="btn_SingUp">註冊</button>
                     </div>
@@ -284,71 +284,6 @@
                         </button>                        
                     </div>
                     <div class="modal-body" style="max-height: 800px; overflow: auto;" id="div_cart">
-                        <div class="card" style="width:100%;margin-top: 10px;" id="cart_01">
-                            <div class="context">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-3 col-md" style="max-width: 33%;min-width: 33%; text-align: center;">
-                                            <img src="BookCover/52WIT00108.png" style="max-height: 80px;">
-                                        </div>
-                                        <div class="col-9 col-md" style="max-width: 67%;min-width: 67%;align-items: center;display: grid;">
-                                            <div class="row">
-                                                <div class="col-4 col-md">
-                                                    <h5><label id="lb_cartName_01">資訊管理</label></h5>
-                                                </div>
-                                                <div class="col-2 col-md">
-                                                    <i class="fa-solid fa-circle-info"></i>&ensp;<label id="lb_cartCost_01">500</label>
-                                                </div>
-                                                <div class="col-6 col-md" style="min-width: 40%;">
-                                                    <div class="input-group">
-                                                        <button type="button" class="btn btn-success" id="btn_cartM_01">-</button>
-                                                        &ensp;
-                                                        <input type="text" class="form-control" style="text-align: center; max-width: 60px;" value="2" id="txt_cartCount" readonly/>
-                                                        &ensp;
-                                                        <button type="button" class="btn btn-success" id="btn_cartP_01">+</button>
-                                                        &ensp;
-                                                        <button type="button" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card" style="width:100%;margin-top: 10px;" id="cart_01">
-                            <div class="context">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-3 col-md" style="max-width: 33%;min-width: 33%; text-align: center;">
-                                            <img src="BookCover/52WIT00108.png" style="max-height: 80px;">
-                                        </div>
-                                        <div class="col-9 col-md" style="max-width: 67%;min-width: 67%;align-items: center;display: grid;">
-                                            <div class="row">
-                                                <div class="col-4 col-md">
-                                                    <h5><label id="lb_cartName_01">資訊管理</label></h5>
-                                                </div>
-                                                <div class="col-2 col-md">
-                                                    <i class="fa-solid fa-circle-info"></i>&ensp;<label id="lb_cartCost_01">500</label>
-                                                </div>
-                                                <div class="col-6 col-md" style="min-width: 40%;">
-                                                    <div class="input-group">
-                                                        <button type="button" class="btn btn-success" id="btn_cartM_01">-</button>
-                                                        &ensp;
-                                                        <input type="text" class="form-control" style="text-align: center; max-width: 60px;" value="2" id="txt_cartCount" readonly/>
-                                                        &ensp;
-                                                        <button type="button" class="btn btn-success" id="btn_cartP_01">+</button>
-                                                        &ensp;
-                                                        <button type="button" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                     <div class="modal-footer">
                         <div class="row" style="text-align: right;">

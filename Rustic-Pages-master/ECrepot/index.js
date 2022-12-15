@@ -87,7 +87,8 @@ var TmpVal = {
       Rkey: 1,
       scrore: 5,
       Title: "資訊管理的聖經",
-      content: "如果說你沒有學過資訊管理，那你一定要買這本，如果你有學過資訊管理，那你更要買這本，他會告訴你什麼是資訊管理。",
+      content:
+        "如果說你沒有學過資訊管理，那你一定要買這本，如果你有學過資訊管理，那你更要買這本，他會告訴你什麼是資訊管理。",
     },
     {
       book_Rkey: 1,
@@ -95,7 +96,8 @@ var TmpVal = {
       Rkey: 2,
       scrore: 5,
       Title: "非常推薦",
-      content: "言簡意賅的統整，精準到位的圖表，再艱深的知識都能輕鬆的理解，總之，非常推薦!!",
+      content:
+        "言簡意賅的統整，精準到位的圖表，再艱深的知識都能輕鬆的理解，總之，非常推薦!!",
     },
     {
       book_Rkey: 1,
@@ -103,7 +105,8 @@ var TmpVal = {
       Rkey: 3,
       scrore: 5,
       Title: "必買，我買了兩本",
-      content: "林東清老師在字裡行間，引用了大量的範例，以及大家生活中常接觸到的事物，不像很多書籍只有艱深的知識，卻讓人沒有實體感，這才是我再找的資訊管理。",
+      content:
+        "林東清老師在字裡行間，引用了大量的範例，以及大家生活中常接觸到的事物，不像很多書籍只有艱深的知識，卻讓人沒有實體感，這才是我再找的資訊管理。",
     },
     {
       book_Rkey: 2,
@@ -111,7 +114,8 @@ var TmpVal = {
       Rkey: 1,
       scrore: 5,
       Title: "簡單卻不簡單",
-      content: "比起坊間技術導向的專業書來說，要把AI講解給我們沒有學過的人還要聽得懂，難度非常的高，但是作者卻做到了!!",
+      content:
+        "比起坊間技術導向的專業書來說，要把AI講解給我們沒有學過的人還要聽得懂，難度非常的高，但是作者卻做到了!!",
     },
     {
       book_Rkey: 2,
@@ -119,7 +123,8 @@ var TmpVal = {
       Rkey: 2,
       scrore: 5,
       Title: "謝謝林東清老師",
-      content: "看了這本書以後，決定未來要往AI的工作發展，希望有一天能造福人類。",
+      content:
+        "看了這本書以後，決定未來要往AI的工作發展，希望有一天能造福人類。",
     },
     {
       book_Rkey: 2,
@@ -127,7 +132,8 @@ var TmpVal = {
       Rkey: 3,
       scrore: 5,
       Title: "好書，推薦大家購買收藏",
-      content: "從小看了很多科幻的電影，有時候會擔心機器人會取代人類，但是這種擔心就是未知的恐懼，看了這本書以後對AI有更深的認識，了解我們要活用AI而不是排斥AI。",
+      content:
+        "從小看了很多科幻的電影，有時候會擔心機器人會取代人類，但是這種擔心就是未知的恐懼，看了這本書以後對AI有更深的認識，了解我們要活用AI而不是排斥AI。",
     },
     {
       book_Rkey: 3,
@@ -135,7 +141,8 @@ var TmpVal = {
       Rkey: 1,
       scrore: 3,
       Title: "有趣的論點",
-      content: "不動產經濟學有很多派說法，這本書綜合了國內外的相關內容，但是又有點不符合現在的現況。",
+      content:
+        "不動產經濟學有很多派說法，這本書綜合了國內外的相關內容，但是又有點不符合現在的現況。",
     },
     {
       book_Rkey: 3,
@@ -198,6 +205,7 @@ function regist_onclick() {
     $("#div_main").hide();
     $("#div_Login").show();
     $("#div_regist").show();
+    clrDefault();
   });
 
   //搜尋按鈕
@@ -334,28 +342,60 @@ function regist_onclick() {
       MSG_Error("您的代幣不足，請先購買代幣。");
       return;
     }
-    
-    let Rkey_Need2Delete = [];
-      TmpVal.cart.forEach(function (cart) {
-          if (cart.buyer_Rkey == user_Rkey) {
-              //添加到Order裏面
-              TmpVal.order.push(cart);
-          }
-      });
 
-       //刪除購物車的資料
-       TmpVal.cart = TmpVal.cart.filter(function (params) {
-          return TmpVal.cart.Rkey
-       });
-       let indexOfObject = TmpVal.cart.findIndex((Object) => {
-        return Object.Rkey == cart.Rkey;
+    let Rkey_Need2Delete = [];
+    TmpVal.cart.forEach(function (cart) {
+      if (cart.buyer_Rkey == user_Rkey) {
+        //添加到Order裏面
+        TmpVal.order.push(cart);
+        Rkey_Need2Delete.push(cart.Rkey);
+      }
+    });
+
+    //刪除購物車的資料
+    Rkey_Need2Delete.forEach(function (N2D) {
+      TmpVal.cart = TmpVal.cart.filter(function (params) {
+        return params.Rkey != N2D;
       });
-      TmpVal.cart.splice(indexOfObject, 1);
-      
-      $('#modal_ShoppingCart').modal('hide');
-      Refresh_CartCount();
+    });
+
+    //  let indexOfObject = TmpVal.cart.findIndex((Object) => {
+    //   return Object.Rkey == cart.Rkey;
+    // });
+    // TmpVal.cart.splice(indexOfObject, 1);
+
+    $("#modal_ShoppingCart").modal("hide");
+    Refresh_CartCount();
 
     MSG_Correct("結帳成功，感謝您的惠顧。");
+  });
+
+  //註冊
+  $('#btn_SingUp').on('click',function () {
+    let LastName = $('#txt_NewLastName').val();
+    let FirstName = $('#txt_NewFirstName').val();
+    let Acoount = $('#txt_NewAcoount').val();
+    let Password = $('#txt_NewPassword').val();
+    let nowRkey = 0;
+    TmpVal.Users.forEach(function (params) {
+      if (params.Rkey > nowRkey) {
+        nowRkey = params.Rkey;
+      }
+    });
+
+    nowRkey++;
+    TmpVal.Users.push({
+      UserName: Acoount,
+      PassWord: Password,
+      Rkey: nowRkey,
+      FirstName: FirstName,
+      LastName: LastName,
+      wallet: 2000,
+    });
+
+    $("#txt_LogAccount").val(Acoount);
+    $("#txt_LogPWD").val(Password);
+    Login();
   });
 }
 
@@ -465,7 +505,9 @@ function search() {
             books.Rkey +
             ')">' +
             books.Title +
-            '</a></h2></div><div class="row">by&ensp;<a href="#" onclick="searchByAuthor('+books.Author+')">' +
+            '</a></h2></div><div class="row">by&ensp;<a href="#" onclick="searchByAuthor(\'' +
+            books.Author +
+            "')\">" +
             books.Author +
             '</a></div><div class="row">published ' +
             books.Year +
@@ -634,24 +676,24 @@ function GainCartBook(params) {
             '><div class="context"><div class="card-body"><div class="row"><div class="col-3 col-md" style="max-width: 33%;min-width: 33%; text-align: center;"><img src="' +
             book.Cover +
             '" style="max-height: 80px;"></div><div class="col-9 col-md" style="max-width: 67%;min-width: 67%;align-items: center;display: grid;"><div class="row"><div class="col-4 col-md"><h5><label id="lb_cartName_' +
-            book.Rkey +
+            cart.Rkey +
             '">' +
             book.Title +
-            '</label></h5></div><div class="col-2 col-md"><i class="fa-solid fa-circle-info"></i>&ensp;<label id="lb_cartCost_' +
-            book.Rkey +
+            '</label></h5></div><div class="col-2 col-md"><img src="dollarPS.png" style="width:15px;">&ensp;<label id="lb_cartCost_' +
+            cart.Rkey +
             '">' +
             book.Price +
             '</label></div><div class="col-6 col-md" style="min-width: 40%;"><div class="input-group"><button type="button" class="btn btn-success" id="btn_cartM_' +
-            book.Rkey +
-            '">-</button>&ensp;<input type="text" class="form-control" style="text-align: center; max-width: 60px;" value="' +
+            cart.Rkey +
+            '" onclick="AdjustCount(\'-\',\'' + cart.Rkey + '\')">-</button>&ensp;<input type="text" class="form-control" style="text-align: center; max-width: 60px;" value="' +
             cart.count +
             '" id="txt_cartCount_' +
-            book.Rkey +
+            cart.Rkey +
             '" readonly/>&ensp;<button type="button" class="btn btn-success" id="btn_cartP_' +
-            book.Rkey +
-            '">+</button>&ensp;<button type="button" class="btn btn-outline-danger" id="btn_cart_Del_' +
-            book.Rkey +
-            '"><i class="fa-regular fa-trash-can"></i></button></div></div></div></div></div></div></div></div>';
+            cart.Rkey +
+            '" onclick="AdjustCount(\'+\',\'' + cart.Rkey + '\')">+</button>&ensp;<button type="button" class="btn btn-outline-danger" id="btn_cart_Del_' +
+            cart.Rkey +
+            '" onclick="DeleteBook(\'' + cart.Rkey + '\')"><i class="fa-regular fa-trash-can"></i></button></div></div></div></div></div></div></div></div>';
           total_count += parseInt(book.Price, 10) * parseInt(cart.count, 10);
         }
       });
@@ -661,9 +703,12 @@ function GainCartBook(params) {
     innerHML +=
       '<div class="row" style="text-align: right;display: block;margin-top: 20px;margin-right: 10px;"><label style="font-weight: 800;">總共：</label>&ensp;<label id="lb_cartAmout">' +
       total_count +
-      '</label>&ensp;&ensp;<i class="fa-solid fa-circle-info"></i></div>';
+      '</label>&ensp;&ensp;<img src="dollarPS.png" style="width:15px;"></div>';
+
+      $('#btn_checkOut').prop('disabled',false);
   } else {
     innerHML += "購物車空空如也~";
+    $('#btn_checkOut').prop('disabled',true);
   }
 
   $("#div_cart").html(innerHML);
@@ -671,8 +716,59 @@ function GainCartBook(params) {
 
 //用作者查詢
 function searchByAuthor(params) {
-  $("#sl2_type").val('Author').trigger('change');
-  $("#txt_search").val(params);   
+  console.log(params);
+  $("#sl2_type").val("Author").trigger("change");
+  $("#txt_search").val(params);
   search();
-  
+}
+
+//調整書籍數量
+function AdjustCount(params, Rkey) {
+  let user_Rkey = $("#hf_UserRkey").val();
+  switch (params) {
+    case "-":
+      TmpVal.cart.forEach(function (cart) {
+        if (cart.Rkey == Rkey) {
+          cart.count -= 1;
+          if (cart.count == 0) {
+            let indexOfObject = TmpVal.cart.findIndex((Object) => {
+              return Object.Rkey == Rkey;
+            });
+        
+            TmpVal.cart.splice(indexOfObject, 1);
+          }
+        }
+      });
+      break;
+    case "+":
+      TmpVal.cart.forEach(function (cart) {
+        if (cart.Rkey == Rkey) {
+          cart.count += 1;
+        }
+      });
+      break;
+  }
+  GainCartBook(user_Rkey);
+  Refresh_CartCount();
+}
+
+//刪除書籍
+function DeleteBook(Rkey) {
+  let indexOfObject = TmpVal.cart.findIndex((Object) => {
+    return Object.Rkey == Rkey;
+  });
+  TmpVal.cart.splice(indexOfObject, 1);
+  let user_Rkey = $("#hf_UserRkey").val();
+  GainCartBook(user_Rkey);
+  Refresh_CartCount();
+}
+
+//清空輸入框
+function clrDefault() {
+  $('#txt_LogAccount').val('');
+  $('#txt_LogPWD').val('');
+  $('#txt_NewLastName').val('');
+  $('#txt_NewFirstName').val('');
+  $('#txt_NewAcoount').val('');
+  $('#txt_NewPassword').val('');
 }
