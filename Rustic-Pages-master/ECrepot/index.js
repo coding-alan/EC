@@ -261,31 +261,16 @@ var TmpVal = {
       content: "作者講述了很多的例子，可以買來看看。",
     },
   ],
-  cart: [
-    
-  ],
+  cart: [],
   order: [],
 };
 
 $(function () {
-  // prog_ID = "GES0051";
-  // if (url.indexOf("csmc.com.tw") > 0) {
-  //     apiUrl = "/GES" + "/api/GESView/" + prog_ID + "/";
-  //     apiGES0051Url = "/GES" + "/api/GESView/GES0051/";
-  //     wcfUrl = "/GES/";
-  // }
-  // else {
-  //     apiUrl = "/api/GESView/" + prog_ID + "/";
-  //     apiGES0051Url = "/api/GESView/GES0051/";
-  //     wcfUrl = "/";
-  // }
-  // GetSelect2Base();
   regist_onclick();
   regist_onchange();
-  // regist_Select2();
-  $("#txt_LogAccount").val("m");
-  $("#txt_LogPWD").val("0");
-  Login();
+  // $("#txt_LogAccount").val("m");
+  // $("#txt_LogPWD").val("0");
+  // Login();
 });
 
 function regist_onclick() {
@@ -462,14 +447,16 @@ function regist_onclick() {
       });
     });
 
-    //  let indexOfObject = TmpVal.cart.findIndex((Object) => {
-    //   return Object.Rkey == cart.Rkey;
-    // });
-    // TmpVal.cart.splice(indexOfObject, 1);
+    //修改人員錢包
+    TmpVal.Users.forEach(function (user) {
+      if (user.Rkey == user_Rkey) {
+        user.wallet -= total_count;
+      }
+    });
 
     $("#modal_ShoppingCart").modal("hide");
     Refresh_CartCount();
-
+    setUser(user_Rkey);
     MSG_Correct("結帳成功，感謝您的惠顧。");
   });
 
@@ -501,10 +488,6 @@ function regist_onclick() {
     Login();
   });
 }
-
-function regist_onchange() {}
-
-function regist_Select2() {}
 
 //登入用function
 function Login() {
@@ -555,6 +538,8 @@ function setUser(Rkey) {
       $("#div_Notice").html(content);
       //塞Rkey到hf中
       $("#hf_UserRkey").val(Rkey);
+      //塞代幣進去
+      $('#lb_Nav_wallet').text(element.wallet);
     }
   });
 }
@@ -719,7 +704,6 @@ function bookShow(bookRkey) {
 }
 
 function test() {
-  console.log("AA");
   $.ajax({
     type: "POST",
     url: "to_database.py/insert",
@@ -761,7 +745,6 @@ function Refresh_CartCount() {
       total_count += params.count;
     }
   });
-  console.log(TmpVal.cart);
   $("#cart_count").text(total_count);
 }
 
@@ -819,7 +802,6 @@ function GainCartBook(params) {
 
 //用作者查詢
 function searchByAuthor(params) {
-  console.log(params);
   $("#sl2_type").val("Author").trigger("change");
   $("#txt_search").val(params);
   search();

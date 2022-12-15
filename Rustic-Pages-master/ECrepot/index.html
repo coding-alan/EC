@@ -4,26 +4,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>i書評</title>
-    <!-- <style>
-        body {
-            background-color: black;
-        }
-        h1 {
-            margin: 10px;
-            padding: 10px;
-            text-align: center;
-            color: white;
-            background-color: gray;
-        }
-        div {
-            margin: 10px;
-            padding: 10px;
-            text-align: center;
-            color: white;
-            background-color: gray;
-        }
-    </style> -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
         integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -34,7 +14,6 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
@@ -80,10 +59,13 @@
                                 <button class="btn btn-outline-success" type="button" id="btn_Login">登入</button>
                             </div>
                             <div id="div_AfterLogin" style="display: none;">
+                                <img src="dollarPS.png" style="width:15px;">                                
+                                <label id="lb_Nav_wallet"></label>
+                                &ensp;&ensp;&ensp;
                                 <label id="lb_showName"></label>
                                 &ensp;&ensp;&ensp;
                                 <button class="btn btn-outline-success" type="button" id="btn_shoppingCart">
-                                    <i class="fa-solid fa-cart-shopping"></i>&ensp;&ensp;<span class="badge badge-pill badge-success" id="cart_count">4</span>
+                                    <i class="fa-solid fa-cart-shopping"></i>&ensp;&ensp;<span class="badge badge-pill badge-success" id="cart_count"></span>
                                 </button>                                
                                 <button class="btn btn-outline-primary" type="button" id="btn_LogOut">登出</button>
                             </div>
