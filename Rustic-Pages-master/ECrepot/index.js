@@ -2,30 +2,48 @@ var TmpVal = {
   bookStock: [
     {
       Rkey: 1,
-      Title: "Chase The Sun",
-      Author: "Martin",
+      Title: "資訊管理",
+      Author: "林東清",
       ISBN: "978-957-511-785-6",
-      Year: "2008",
+      Year: "2022",
       Cover: "BookCover/52WIT00108.png",
-      Price: 500,
+      Price: 800,
     },
     {
       Rkey: 2,
-      Title: "Fight with The Sun",
-      Author: "Alan",
-      ISBN: "978-957-511-785-7",
-      Year: "2020",
-      Cover: "BookCover/sanu.jpg",
-      Price: 700,
+      Title: "人工智慧：概念應用與管理",
+      Author: "林東清",
+      ISBN: "978-957-511-841-9",
+      Year: "2022",
+      Cover: "BookCover/52WIT01501.png",
+      Price: 750,
     },
     {
       Rkey: 3,
-      Title: "Play with The Sun",
-      Author: "Judith",
-      ISBN: "978-957-511-785-8",
-      Year: "2010",
-      Cover: "BookCover/52WIT00108.png",
-      Price: 550,
+      Title: "不動產經濟學",
+      Author: "李春長",
+      ISBN: "978-957-729-868-3",
+      Year: "2012",
+      Cover: "BookCover/52MFF02401.gif",
+      Price: 600,
+    },
+    {
+      Rkey: 4,
+      Title: "物件導向系統分析與設計：結合MDA與UML",
+      Author: "吳仁和",
+      ISBN: "978-957-511-649-1",
+      Year: "2022",
+      Cover: "BookCover/52WIT00707.png",
+      Price: 700,
+    },
+    {
+      Rkey: 5,
+      Title: "系統分析與設計：理論與實務應用",
+      Author: "吳仁和",
+      ISBN: "978-957-511-644-6",
+      Year: "2022",
+      Cover: "BookCover/52WIT00608.png",
+      Price: 680,
     },
   ],
   Users: [
@@ -67,9 +85,9 @@ var TmpVal = {
       book_Rkey: 1,
       reviewer_Rkey: 2,
       Rkey: 1,
-      scrore: 3,
-      Title: "還行吧",
-      content: "內容還可以，就是轉折有點奇怪。可以讀看看。",
+      scrore: 5,
+      Title: "資訊管理的聖經",
+      content: "如果說你沒有學過資訊管理，那你一定要買這本，如果你有學過資訊管理，那你更要買這本，他會告訴你什麼是資訊管理。",
     },
     {
       book_Rkey: 1,
@@ -77,15 +95,55 @@ var TmpVal = {
       Rkey: 2,
       scrore: 5,
       Title: "非常推薦",
-      content: "如果你再找冒險類的小說，那就是這本了，一定要讀!!",
+      content: "言簡意賅的統整，精準到位的圖表，再艱深的知識都能輕鬆的理解，總之，非常推薦!!",
     },
     {
       book_Rkey: 1,
       reviewer_Rkey: 1,
       Rkey: 3,
-      scrore: 1,
-      Title: "非常糟糕",
-      content: "完全不懂在寫什麼，簡直是浪費我的生命",
+      scrore: 5,
+      Title: "必買，我買了兩本",
+      content: "林東清老師在字裡行間，引用了大量的範例，以及大家生活中常接觸到的事物，不像很多書籍只有艱深的知識，卻讓人沒有實體感，這才是我再找的資訊管理。",
+    },
+    {
+      book_Rkey: 2,
+      reviewer_Rkey: 2,
+      Rkey: 1,
+      scrore: 5,
+      Title: "簡單卻不簡單",
+      content: "比起坊間技術導向的專業書來說，要把AI講解給我們沒有學過的人還要聽得懂，難度非常的高，但是作者卻做到了!!",
+    },
+    {
+      book_Rkey: 2,
+      reviewer_Rkey: 3,
+      Rkey: 2,
+      scrore: 5,
+      Title: "謝謝林東清老師",
+      content: "看了這本書以後，決定未來要往AI的工作發展，希望有一天能造福人類。",
+    },
+    {
+      book_Rkey: 2,
+      reviewer_Rkey: 1,
+      Rkey: 3,
+      scrore: 5,
+      Title: "好書，推薦大家購買收藏",
+      content: "從小看了很多科幻的電影，有時候會擔心機器人會取代人類，但是這種擔心就是未知的恐懼，看了這本書以後對AI有更深的認識，了解我們要活用AI而不是排斥AI。",
+    },
+    {
+      book_Rkey: 3,
+      reviewer_Rkey: 2,
+      Rkey: 1,
+      scrore: 3,
+      Title: "有趣的論點",
+      content: "不動產經濟學有很多派說法，這本書綜合了國內外的相關內容，但是又有點不符合現在的現況。",
+    },
+    {
+      book_Rkey: 3,
+      reviewer_Rkey: 3,
+      Rkey: 2,
+      scrore: 3,
+      Title: "還行吧",
+      content: "作者講述了很多的例子，可以買來看看。",
     },
   ],
   cart: [
@@ -277,17 +335,22 @@ function regist_onclick() {
       return;
     }
     
+    let Rkey_Need2Delete = [];
       TmpVal.cart.forEach(function (cart) {
           if (cart.buyer_Rkey == user_Rkey) {
               //添加到Order裏面
               TmpVal.order.push(cart);
-              //刪除購物車的資料
-              let indexOfObject = TmpVal.cart.findIndex((Object) => {
-                return Object.Rkey == cart.Rkey;
-              });
-              TmpVal.cart.splice(indexOfObject, 1);
           }
       });
+
+       //刪除購物車的資料
+       TmpVal.cart = TmpVal.cart.filter(function (params) {
+          return TmpVal.cart.Rkey
+       });
+       let indexOfObject = TmpVal.cart.findIndex((Object) => {
+        return Object.Rkey == cart.Rkey;
+      });
+      TmpVal.cart.splice(indexOfObject, 1);
       
       $('#modal_ShoppingCart').modal('hide');
       Refresh_CartCount();
@@ -402,7 +465,7 @@ function search() {
             books.Rkey +
             ')">' +
             books.Title +
-            '</a></h2></div><div class="row">by&ensp;<a href="#">' +
+            '</a></h2></div><div class="row">by&ensp;<a href="#" onclick="searchByAuthor('+books.Author+')">' +
             books.Author +
             '</a></div><div class="row">published ' +
             books.Year +
@@ -604,4 +667,12 @@ function GainCartBook(params) {
   }
 
   $("#div_cart").html(innerHML);
+}
+
+//用作者查詢
+function searchByAuthor(params) {
+  $("#sl2_type").val('Author').trigger('change');
+  $("#txt_search").val(params);   
+  search();
+  
 }
