@@ -263,6 +263,28 @@ var TmpVal = {
   ],
   cart: [],
   order: [],
+  Token: [
+    {
+      Rkey: 1,
+      Amount: 500,
+    },
+    {
+      Rkey: 2,
+      Amount: 1050,
+    },
+    {
+      Rkey: 3,
+      Amount: 2200,
+    },
+    {
+      Rkey: 4,
+      Amount: 6000,
+    },
+    {
+      Rkey: 5,
+      Amount: 15000,
+    },
+  ],
 };
 
 $(function () {
@@ -451,11 +473,11 @@ function regist_onclick() {
     MSG_Correct("結帳成功，感謝您的惠顧。");
   });
   //註冊
-  $('#btn_SingUp').on('click',function () {
-    let LastName = $('#txt_NewLastName').val();
-    let FirstName = $('#txt_NewFirstName').val();
-    let Acoount = $('#txt_NewAcoount').val();
-    let Password = $('#txt_NewPassword').val();
+  $("#btn_SingUp").on("click", function () {
+    let LastName = $("#txt_NewLastName").val();
+    let FirstName = $("#txt_NewFirstName").val();
+    let Acoount = $("#txt_NewAcoount").val();
+    let Password = $("#txt_NewPassword").val();
     let nowRkey = 0;
     TmpVal.Users.forEach(function (params) {
       if (params.Rkey > nowRkey) {
@@ -477,9 +499,25 @@ function regist_onclick() {
     $("#txt_LogPWD").val(Password);
     Login();
   });
-  //購買代幣
-  $('#lb_Nav_wallet').on('click', function () {
-    $('#modal_BuyToken').modal('show');
+  //購買代幣介面
+  $("#lb_Nav_wallet").on("click", function () {
+    $("#modal_BuyToken").modal("show");
+  });
+  //選定購入
+  $("#btn_BuyToken").on("click", function () {
+    let Token_Rkey = $("input[name=token]:checked", "#div_radioToken").val();
+    let UserRkey = $('#hf_UserRkey').val();
+    TmpVal.Token.forEach(function (params) {
+      if (params.Rkey == parseInt(Token_Rkey,10)) {
+        TmpVal.Users.forEach(function (user) {
+          if (user.Rkey == UserRkey) {
+            user.wallet += params.Amount;
+          }
+        });
+      }
+    });
+    $("#modal_BuyToken").modal("hide");
+    setUser(UserRkey);
   });
 }
 
@@ -533,7 +571,7 @@ function setUser(Rkey) {
       //塞Rkey到hf中
       $("#hf_UserRkey").val(Rkey);
       //塞代幣進去
-      $('#lb_Nav_wallet').text(element.wallet);
+      $("#lb_Nav_wallet").text(element.wallet);
     }
   });
 }
@@ -765,15 +803,21 @@ function GainCartBook(params) {
             book.Price +
             '</label></div><div class="col-6 col-md" style="min-width: 40%;"><div class="input-group"><button type="button" class="btn btn-success" id="btn_cartM_' +
             cart.Rkey +
-            '" onclick="AdjustCount(\'-\',\'' + cart.Rkey + '\')">-</button>&ensp;<input type="text" class="form-control" style="text-align: center; max-width: 60px;" value="' +
+            "\" onclick=\"AdjustCount('-','" +
+            cart.Rkey +
+            '\')">-</button>&ensp;<input type="text" class="form-control" style="text-align: center; max-width: 60px;" value="' +
             cart.count +
             '" id="txt_cartCount_' +
             cart.Rkey +
             '" readonly/>&ensp;<button type="button" class="btn btn-success" id="btn_cartP_' +
             cart.Rkey +
-            '" onclick="AdjustCount(\'+\',\'' + cart.Rkey + '\')">+</button>&ensp;<button type="button" class="btn btn-outline-danger" id="btn_cart_Del_' +
+            "\" onclick=\"AdjustCount('+','" +
             cart.Rkey +
-            '" onclick="DeleteBook(\'' + cart.Rkey + '\')"><i class="fa-regular fa-trash-can"></i></button></div></div></div></div></div></div></div></div>';
+            '\')">+</button>&ensp;<button type="button" class="btn btn-outline-danger" id="btn_cart_Del_' +
+            cart.Rkey +
+            '" onclick="DeleteBook(\'' +
+            cart.Rkey +
+            '\')"><i class="fa-regular fa-trash-can"></i></button></div></div></div></div></div></div></div></div>';
           total_count += parseInt(book.Price, 10) * parseInt(cart.count, 10);
         }
       });
@@ -785,10 +829,10 @@ function GainCartBook(params) {
       total_count +
       '</label>&ensp;&ensp;<img src="dollarPS.png" style="width:15px;"></div>';
 
-      $('#btn_checkOut').prop('disabled',false);
+    $("#btn_checkOut").prop("disabled", false);
   } else {
     innerHML += "購物車空空如也~";
-    $('#btn_checkOut').prop('disabled',true);
+    $("#btn_checkOut").prop("disabled", true);
   }
 
   $("#div_cart").html(innerHML);
@@ -813,7 +857,7 @@ function AdjustCount(params, Rkey) {
             let indexOfObject = TmpVal.cart.findIndex((Object) => {
               return Object.Rkey == Rkey;
             });
-        
+
             TmpVal.cart.splice(indexOfObject, 1);
           }
         }
@@ -844,10 +888,10 @@ function DeleteBook(Rkey) {
 
 //清空輸入框
 function clrDefault() {
-  $('#txt_LogAccount').val('');
-  $('#txt_LogPWD').val('');
-  $('#txt_NewLastName').val('');
-  $('#txt_NewFirstName').val('');
-  $('#txt_NewAcoount').val('');
-  $('#txt_NewPassword').val('');
+  $("#txt_LogAccount").val("");
+  $("#txt_LogPWD").val("");
+  $("#txt_NewLastName").val("");
+  $("#txt_NewFirstName").val("");
+  $("#txt_NewAcoount").val("");
+  $("#txt_NewPassword").val("");
 }
