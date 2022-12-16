@@ -59,14 +59,15 @@
                                 <button class="btn btn-outline-success" type="button" id="btn_Login">登入</button>
                             </div>
                             <div id="div_AfterLogin" style="display: none;">
-                                <img src="dollarPS.png" style="width:15px;">                                
+                                <img src="dollarPS.png" style="width:15px;">
                                 <label id="lb_Nav_wallet"></label>
                                 &ensp;&ensp;&ensp;
                                 <label id="lb_showName"></label>
                                 &ensp;&ensp;&ensp;
                                 <button class="btn btn-outline-success" type="button" id="btn_shoppingCart">
-                                    <i class="fa-solid fa-cart-shopping"></i>&ensp;&ensp;<span class="badge badge-pill badge-success" id="cart_count"></span>
-                                </button>                                
+                                    <i class="fa-solid fa-cart-shopping"></i>&ensp;&ensp;<span
+                                        class="badge badge-pill badge-success" id="cart_count"></span>
+                                </button>
                                 <button class="btn btn-outline-primary" type="button" id="btn_LogOut">登出</button>
                             </div>
                         </div>
@@ -119,12 +120,12 @@
                         <h3>書本詳細內容</h3>
                     </div>
                     <hr />
-                    <div class="row">                    
+                    <div class="row">
                         <div class="col-4" style="text-align:left;">
                             <label style="font-weight: bold;">ISBN:</label>
                         </div>
                         <div class="col-4" style="text-align:left;">
-                            <label id="detail_ISBN">978-957-511-785-6</label>                        
+                            <label id="detail_ISBN">978-957-511-785-6</label>
                         </div>
                     </div>
                     <div class="row">
@@ -153,7 +154,8 @@
                     </div>
                     <br />
                     <div class="row">
-                        <button type="button" class="btn btn-primary" id="btn_Add2Cart"><i class="fa-solid fa-cart-shopping"></i>&ensp;&ensp;加到購物車</button>
+                        <button type="button" class="btn btn-primary" id="btn_Add2Cart"><i
+                                class="fa-solid fa-cart-shopping"></i>&ensp;&ensp;加到購物車</button>
                     </div>
                 </div>
                 <div class="col-4 col-md" style="text-align: center;min-width: 40%;max-width: 40;">
@@ -263,14 +265,60 @@
                         <h4 class="modal-title">購物車</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="True">&times;</span>
-                        </button>                        
+                        </button>
                     </div>
                     <div class="modal-body" style="max-height: 800px; overflow: auto;" id="div_cart">
                     </div>
                     <div class="modal-footer">
                         <div class="row" style="text-align: right;">
-                        <button type="button" id="btn_checkOut" class="btn btn-success">結帳</button>
+                            <button type="button" id="btn_checkOut" class="btn btn-success">結帳</button>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="modal_BuyToken" tabindex="-1" role="dialog" aria-labelledby="modal_BuyToken"
+            aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog" style="min-width: 70%;">
+                <!-- Modal content-->
+                <div class="modal-content" style="font-size: medium;">
+                    <div class="modal-header">
+                        <h4 class="modal-title">購買i幣</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="True">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="max-height: 800px; overflow: auto;">
+                        <div class="col-12 col-md-auto" style="width: 100%;">
+                            <div class="row">
+                                <label>請選擇您欲購買的代幣數量。</label>
+                            </div>
+                            <div class="row">
+                                <input type="radio" class="CL_token" name="token" id="rad_token1" value="1"
+                                    checked />&ensp;<img src="dollarPS.png" style="width:15px;height: auto;">500 (NTD 500)
+                            </div>
+                            <div class="row">
+                                <input type="radio" class="CL_token" name="token" id="rad_token2" value="2"
+                                    checked />&ensp;<img src="dollarPS.png" style="width:15px;">1,050 (NTD 1,000)
+                            </div>
+                            <div class="row">
+                                <input type="radio" class="CL_token" name="token" id="rad_token3" value="3"
+                                    checked />&ensp;<img src="dollarPS.png" style="width:15px;">2,200 (NTD 2,000)
+                            </div>
+                            <div class="row">
+                                <input type="radio" class="CL_token" name="token" id="rad_token4" value="4"
+                                    checked />&ensp;<img src="dollarPS.png" style="width:15px;">6,000 (NTD 5,000)
+                            </div>
+                            <div class="row">
+                                <input type="radio" class="CL_token" name="token" id="rad_token5" value="5"
+                                    checked />&ensp;<img src="dollarPS.png" style="width:15px;">15,000 (NTD 10,000)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row" style="text-align: right;">
+                            <button type="button" id="btn_BuyToken" class="btn btn-success">購買</button>
+                        </div>
                     </div>
                 </div>
             </div>

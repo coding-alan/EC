@@ -477,6 +477,10 @@ function regist_onclick() {
     $("#txt_LogPWD").val(Password);
     Login();
   });
+  //購買代幣
+  $('#lb_Nav_wallet').on('click', function () {
+    $('#modal_BuyToken').modal('show');
+  });
 }
 
 //登入用function
