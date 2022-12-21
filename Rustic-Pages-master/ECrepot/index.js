@@ -492,7 +492,7 @@ function regist_onclick() {
       Rkey: nowRkey,
       FirstName: FirstName,
       LastName: LastName,
-      wallet: 2000,
+      wallet: 1000,
     });
 
     $("#txt_LogAccount").val(Acoount);
